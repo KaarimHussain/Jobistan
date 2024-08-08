@@ -1,0 +1,129 @@
+@import url("./main.css");
+
+.tabsIconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  color: var(--optional-color);
+}
+
+.generalTab {
+  background: rgb(0, 158, 95);
+  background: linear-gradient(360deg,
+      rgba(0, 158, 95, 1) 40%,
+      rgb(0, 167, 75) 100%);
+}
+
+.additionalInfo {
+  background: rgba(255, 0, 125, 1);
+  background: linear-gradient(rgba(255, 0, 125, 1), hsl(331, 100%, 74%));
+}
+
+.notificationTab {
+  background: rgb(55, 0, 158);
+  background: linear-gradient(360deg,
+      rgba(55, 0, 158, 1) 40%,
+      rgba(123, 0, 255, 1) 100%);
+}
+
+.appTab {
+  background: rgb(158, 39, 0);
+  background: linear-gradient(360deg,
+      rgba(158, 39, 0, 1) 40%,
+      rgba(255, 123, 0, 1) 100%);
+}
+
+.helpTab {
+  background: rgb(0, 104, 158);
+  background: linear-gradient(360deg,
+      rgba(0, 104, 158, 1) 40%,
+      rgba(0, 82, 255, 1) 100%);
+}
+
+.deleteTab {
+  background: rgb(158, 0, 46);
+  background: linear-gradient(360deg,
+      rgba(158, 0, 46, 1) 40%,
+      rgba(255, 0, 125, 1) 100%);
+}
+
+.logoutTab {
+  background-color: #219ebc;
+  background: linear-gradient(360deg, #219ebc 40%, #8ecae6 100%);
+}
+
+.dangerZoneLine {
+  border: 1px solid rgb(158, 39, 0);
+}
+
+.dangerZoneColor {
+  color: rgb(158, 39, 0);
+}
+
+.settingTabs {
+  background: var(--secondary-color);
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.settingTabs:hover {
+  background: var(--secondary-color-hover);
+}
+
+.greenBackground {
+  background: linear-gradient(#00000048, #00000048),
+    url("../Resources/Backgrounds/greenback.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.purpleBackground {
+  background: linear-gradient(#00000048, #00000048),
+    url("../Resources/Backgrounds/purpleBackground.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.orangeBackground {
+  background: linear-gradient(#00000048, #00000048),
+    url("../Resources/Backgrounds/orangeback.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.blueBackground {
+  background: linear-gradient(#00000048, #00000048),
+    url("../Resources/Backgrounds/blueback.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.pinkBackground {
+  background: linear-gradient(#00000048, #00000048),
+    url("../Resources/Backgrounds/pinkBackground.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.form-check-input {
+  width: 2em;
+  background-color: var(--primary-color);
+  margin-left: -2.5em;
+  border: 1px solid var(--primary-color);
+  background-image: var(--bs-form-switch-bg);
+  background-position: left center;
+  border-radius: 2em;
+  transition: background-position 0.15s ease-in-out;
+}
+
+.modal-custom-bg {
+  background: linear-gradient(#ffffff60, #ffffff60) !important;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}

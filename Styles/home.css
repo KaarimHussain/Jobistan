@@ -1,0 +1,52 @@
+:root {
+  --color1: var(--light-shade-blue);
+  --color2: #e3dbfa;
+  --color3: #fbe2f4;
+  --color4: #ffe1cc;
+  --color5: #d4f6ed;
+}
+
+.bg-cool1 {
+  background-color: var(--color1) !important;
+}
+
+.bg-cool2 {
+  background-color: var(--color2) !important;
+}
+
+.bg-cool3 {
+  background-color: var(--color3) !important;
+}
+
+.bg-cool4 {
+  background-color: var(--color4) !important;
+}
+
+.bg-cool5 {
+  background-color: var(--color5) !important;
+}
+
+@media (max-width: 768px) {
+}
+.jobCardsContainer {
+  padding: 0.2rem;
+  background-color: white;
+  border-radius: 20px;
+  height: auto;
+}
+.jobCardInnerTop {
+  padding: 1rem;
+  background-color: var(--light-shade-blue);
+  border-radius: 15px;
+  height: auto;
+}
+.tagsBox {
+  font-size: 11px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 50px;
+  padding: 5px 10px;
+  font-weight: 700;
+  text-align: center;
+  max-width: 100px;
+  width: 100%;
+}

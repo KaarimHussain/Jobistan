@@ -1,0 +1,80 @@
+var form_full_name = document.getElementById("form_full_name");
+var form_job_title = document.getElementById('form_job_title');
+var form_job_summary = document.getElementById('form_job_summary');
+var form_email = document.getElementById('form_email');
+var form_phone = document.getElementById('form_phone');
+var form_Location = document.getElementById('form_Location');
+var form_linkedin = document.getElementById('form_linkedin');
+var form_twitter = document.getElementById('form_twitter');
+// Step 2: Work Experience
+
+
+// Step 3: Education and languages
+var form_skills = document.getElementById('form_skills');
+var form_languages = document.getElementById('form_languages');
+var form_Education1 = document.getElementById('form_Education1');
+var form_Education2 = document.getElementById('form_Education2');
+var form_Experance1 = document.getElementById('form_Experance1');
+var form_Experance2 = document.getElementById('form_Experance2');
+// jobs
+var form_company_name_1 = document.getElementById('form_company_name_1');
+var form_job_title_1 = document.getElementById('form_job_title_1');
+var form_job_description_1 = document.getElementById('form_job_description_1');
+var form_job_duration_1 = document.getElementById('form_job_duration_1');
+
+var form_company_name_2 = document.getElementById('form_company_name_2');
+var form_job_title_2 = document.getElementById('form_job_title_2');
+var form_job_description_2 = document.getElementById('form_job_description_2');
+var form_job_duration_2 = document.getElementById('form_job_duration_2');
+
+
+
+
+
+
+        $full_name = $conn->real_escape_string($_POST['form_full_name']);
+        $job_title = $conn->real_escape_string($_POST['form_job_title']);
+        $job_summary = $conn->real_escape_string($_POST['form_job_summary']);
+        $email = $conn->real_escape_string($_POST['form_email']);
+        $phone = $conn->real_escape_string($_POST['form_phone']);
+        $linkedin = $conn->real_escape_string($_POST['form_linkedin']);
+        $twitter = $conn->real_escape_string($_POST['form_twitter']);
+        $job_title_1 = $conn->real_escape_string($_POST['form_job_title_1']);
+        $company_name_1 = $conn->real_escape_string($_POST['form_company_name_1']);
+        $job_duration_1 = $conn->real_escape_string($_POST['form_job_duration_1']);
+        $job_description_1 = $conn->real_escape_string($_POST['form_job_description_1']);
+        $job_title_2 = $conn->real_escape_string($_POST['form_job_title_2']);
+        $company_name_2 = $conn->real_escape_string($_POST['form_company_name_2']);
+        $job_duration_2 = $conn->real_escape_string($_POST['form_job_duration_2']);
+        $job_description_2 = $conn->real_escape_string($_POST['form_job_description_2']);
+        $form_skills = $conn->real_escape_string($_POST['form_skills']);
+        $languages = $conn->real_escape_string($_POST['form_languages']);
+        $Education1 = $conn->real_escape_string($_POST['form_Education1']);
+        $Education_date1 = $conn->real_escape_string($_POST['form_education_date1']);
+        $Education2 = $conn->real_escape_string($_POST['form_Education2']);
+        $Education_date2 = $conn->real_escape_string($_POST['form_education_date2']);    
+
+
+
+
+$full_name =isset($_GET['form_full_name']) ? htmlspecialchars($_GET['form_full_name']) : '';
+$job_title = isset($_GET['form_job_title']) ? htmlspecialchars($_GET['form_job_title']) : '';
+$job_summary = isset($_GET['form_job_summary']) ? htmlspecialchars($_GET['form_job_summary']) : '';
+$email = isset($_GET['form_email']) ? htmlspecialchars($_GET['form_email']) : '';
+$phone = $conn->real_escape_string($_POST['form_phone']);
+$linkedin = $conn->real_escape_string($_POST['form_linkedin']);
+$twitter = $conn->real_escape_string($_POST['form_twitter']);
+$job_title_1 = $conn->real_escape_string($_POST['form_job_title_1']);
+$company_name_1 = $conn->real_escape_string($_POST['form_company_name_1']);
+$job_duration_1 = $conn->real_escape_string($_POST['form_job_duration_1']);
+$job_description_1 = $conn->real_escape_string($_POST['form_job_description_1']);
+$job_title_2 = $conn->real_escape_string($_POST['form_job_title_2']);
+$company_name_2 = $conn->real_escape_string($_POST['form_company_name_2']);
+$job_duration_2 = $conn->real_escape_string($_POST['form_job_duration_2']);
+$job_description_2 = $conn->real_escape_string($_POST['form_job_description_2']);
+$form_skills = $conn->real_escape_string($_POST['form_skills']);
+$languages = $conn->real_escape_string($_POST['form_languages']);
+$Education1 = $conn->real_escape_string($_POST['form_Education1']);
+$Education_date1 = $conn->real_escape_string($_POST['form_education_date1']);
+$Education2 = $conn->real_escape_string($_POST['form_Education2']);
+$Education_date2 = $conn->

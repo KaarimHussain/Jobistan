@@ -1,0 +1,23 @@
+.postJobInput {
+  color: #fff;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+.gradient-primary-bg {
+  background: url(../Design/meshGradient.png);
+  background-position: center;
+  background-size: cover;
+}
+textarea {
+  resize: none;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  -moz-appearance: none;
+  text-align: start;
+}
+grey-color {
+  color: #b7b7b7;
+}

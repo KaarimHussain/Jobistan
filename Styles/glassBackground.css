@@ -1,0 +1,5 @@
+.glass-bg {
+  background: linear-gradient(#ffffff2d, #ffffff2d);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}

@@ -1,0 +1,87 @@
+<?php
+
+// server information 
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "resumes";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// checking to server connection 
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$stmt = $conn->prepare("INSERT INTO resumes002 (full_name, job_title, email, phone, address, dob, summary,job_title1, company_name, job_duration_start, job_duration_end, job_description,education_name, education_description, education_name2, education_description2,education_name3, education_description3, skills, language_list) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssssssssssssssssss",$full_name, $job_title, $email, $phone, $address, $dob, $summary,$job_title1, $company_name, $job_duration_start, $job_duration_end, $job_description,$education_name, $education_description, $education_name2, $education_description2,$education_name3, $education_description3, $skills, $language_list);
+
+
+$full_name = $_POST["form_full_name"];
+$job_title = $_POST["form_job_title"];
+$email = $_POST["form_email"];
+$phone = $_POST["form_phone"];
+$address = $_POST["form_address"];
+$dob = $_POST["form_dob"];
+$summary = $_POST["form_summary"];
+$job_title1 = $_POST["form_job_title1"];
+$company_name = $_POST["form_company_name"];
+$job_duration_start = $_POST["form_job_duration_start"];
+$job_duration_end = $_POST["form_job_duration_end"];
+$job_description = $_POST["form_job_description"];
+$education_name = $_POST["form_education_name"];
+$education_description = $_POST["form_education_description"];
+$education_name2 = $_POST["form_education_name2"];
+$education_description2 = $_POST["form_education_description2"];
+$education_name3 = $_POST["form_education_name3"];
+$education_description3 = $_POST["form_education_description3"];
+$skills = $_POST["form_skills"];
+$language_list = $_POST["language_list"];
+
+
+
+
+
+
+$stmt->execute();
+$stmt->close();
+$conn->close();
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////
+<form method="POST" action="save_resume002.php">
+    <input type="text" name="form_full_name" placeholder="Full Name">
+    <input type="text" name="form_job_title" placeholder="Job Title">
+    <input type="email" name="form_email" placeholder="Email">
+    <input type="text" name="form_phone" placeholder="Phone">
+    <input type="text" name="form_address" placeholder="Address">
+    <input type="date" name="form_dob" placeholder="Date of Birth">
+    <textarea name="form_summary" placeholder="Summary"></textarea>
+    <input type="text" name="form_job_title1" placeholder="Job Title 1">
+    <input type="text" name="form_company_name" placeholder="Company Name">
+    <input type="date" name="form_job_duration_start" placeholder="Job Duration Start">
+    <input type="date" name="form_job_duration_end" placeholder="Job Duration End">
+    <textarea name="form_job_description" placeholder="Job Description"></textarea>
+    <input type="text" name="form_education_name" placeholder="Education Name">
+    <textarea name="form_education_description" placeholder="Education Description"></textarea>
+    <input type="text" name="form_education_name2" placeholder="Education Name 2">
+    <textarea name="form_education_description2" placeholder="Education Description 2"></textarea>
+    <input type="text" name="form_education_name3" placeholder="Education Name 3">
+    <textarea name="form_education_description3" placeholder="Education Description 3"></textarea>
+    <textarea name="form_skills" placeholder="Skills"></textarea>
+    <textarea name="language_list" placeholder="Languages"></textarea>
+    <button type="submit">Save</button>
+</form>

@@ -1,0 +1,8 @@
+.custom-range::-moz-range-track {
+  background: #333;
+}
+.custom-range::-webkit-slider-runnable-track {
+  background: #333;
+  height: 15px;
+  border-radius: 50px;
+}

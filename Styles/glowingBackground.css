@@ -1,0 +1,5 @@
+@import url("./main.css");
+.glow-back {
+  box-shadow: 0 0 2rem var(--primary-color);
+  animation: growGlow 5s linear infinite;
+}
