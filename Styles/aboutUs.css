@@ -1,0 +1,15 @@
+@import url("./main.css");
+/* Importing the Main Css File for it's classes and variable */
+.mainAboutPage {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--optional-color);
+}
+
+#heading-gradient-background {
+    background: linear-gradient(to top, #000, #2196f3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
