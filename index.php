@@ -1,4 +1,5 @@
-<?php include("./Includes/sessionStart.php");
+<?php
+include("./Includes/sessionStart.php");
 if (isset(($_SESSION['logged']))) {
     header("Location: home.php");
     exit();
@@ -20,7 +21,6 @@ $postSelect = new Select($conn);
     <title>Pakistan First Ever Job Portal - Jobistan.pk</title>
     <?php
     include("./Includes/bootstrapCss.php");
-    include("./Includes/bootstrapJs.php");
     include("./Includes/Icons.php");
     // include("");
     ?>
@@ -28,21 +28,24 @@ $postSelect = new Select($conn);
     <link rel="stylesheet" href="Styles/index.css?v=<?php echo time(); ?>">
 </head>
 
-<body class="position-relative">
+<body>
     <?php
+    include("./AI.php");
     include("./navbar.php");
     ?>
     <main id="index-main" class="half-h py-5 px-3">
         <div class="container position-relative">
-            <img class="position-absolute" id="cube1" height="60" width="60" src="./Illustrations/box.svg"></img>
-            <img class="position-absolute" id="cube2" height="70" width="70" src="./Illustrations/box.svg"></img>
-            <div style="height: 100vh;" class="my-5 h-100 d-flex flex-column align-items-center justify-content-center gap-3">
+            <img class="position-absolute z-1" id="cube1" height="60" width="60" src="./Illustrations/box.svg"></img>
+            <img class="position-absolute z-1" id="cube2" height="70" width="70" src="./Illustrations/box.svg"></img>
+            <div style="height: 100vh;"
+                class="my-5 h-100 d-flex flex-column align-items-center justify-content-center gap-3">
                 <br><br>
                 <p class="primary-color fw-bold">#1 JOB PORTAL</p>
                 <h1 class="fw-bolder mainHeading text-center">Pakistan's first ever <br>
                     <span id="heading-gradient-background" class="fw-light">Job Portal</span>
                 </h1>
-                <p class="text-secondary fw-bold fs-lg-5 fs-6 fs-sm-6 text-center">Discover your next career move with
+                <p class="text-secondary fw-bold fs-lg-5 fs-6 fs-sm-6 text-center">Discover your next career move
+                    with
                     confidence
                     and
                     ease</p>
@@ -76,7 +79,8 @@ $postSelect = new Select($conn);
     </section>
     <!--  -->
     <section class="optional-bg py-5">
-        <h1 class="text-center my-5 display-5 fw-semibold"><span class="fw-light" id="heading-gradient-background">Jobs</span>
+        <h1 class="text-center my-5 display-5 fw-semibold"><span class="fw-light"
+                id="heading-gradient-background">Jobs</span>
             picked for you</h1>
         <div class="container">
             <div class="row">
@@ -85,14 +89,16 @@ $postSelect = new Select($conn);
                 foreach ($response as $row) {
                     $createdAt = new DateTime($row['created_at']);
                     $formattedDate = $createdAt->format('F j, Y, g:i a');
-                ?>
+                    ?>
                     <div class="col-md-6 col-sm-12 col-12 mb-3">
                         <div class="pickedJobsCard shadow border-custom bg-light">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex gap-2">
                                     <div>
                                         <!-- Add the Company Logo -->
-                                        <img height="40" width="40" class="rounded-circle" src="<?php echo $row['company_logo']; ?>" alt="">
+                                        <img height="40" width="40"
+                                            class="rounded-circle object-fit-cover object-position-center"
+                                            src="<?php echo $row['company_logo']; ?>" alt="">
                                     </div>
                                     <div class="d-flex flex-column">
                                         <h5 class="fw-bold"><?php echo $row['title']; ?></h5>
@@ -115,14 +121,9 @@ $postSelect = new Select($conn);
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-pie-chart-fill text-secondary"></i>
-                                        <small class="text-dark"><?php echo $row['company_culture']; ?></small>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-3">
-                                    <div class="d-flex align-items-center gap-2">
                                         <i class="bi bi-coin text-secondary"></i>
-                                        <small class="text-dark"><?php echo number_format(($row['salary_range']), 0, '.', ',') . " PKR"; ?>
+                                        <small
+                                            class="text-dark"><?php echo number_format(($row['salary_range']), 0, '.', ',') . " PKR"; ?>
                                         </small>
                                     </div>
                                 </div>
@@ -135,7 +136,7 @@ $postSelect = new Select($conn);
                             </div>
                         </div>
                     </div>
-                <?php
+                    <?php
                 }
                 if (empty($response)) {
                     echo "<h6 class='text-center fw-bold'>No Currently Avaliable Jobs</h6>";
@@ -151,20 +152,24 @@ $postSelect = new Select($conn);
     </section>
     <!--  -->
     <section class="bg-white py-5">
-        <h1 class="my-4 text-center display-5 fw-semibold">Latest Job <span id="heading-gradient-background" class="fw-light">Opportunities</span></h1>
+        <h1 class="my-4 text-center display-5 fw-semibold">Latest Job <span id="heading-gradient-background"
+                class="fw-light">Opportunities</span></h1>
         <div class="container">
             <div class="row">
                 <?php
                 $response = $postSelect->fetchPostLatestJob();
                 foreach ($response as $row) {
-                ?>
+                    ?>
                     <div class="col-md-4 col-sm-12 col-12 mb-3">
                         <div class="pickedJobsCard shadow border-custom bg-light">
                             <div class="d-flex gap-2 align-items-center justify-content-between">
                                 <div class="d-flex gap-2 justify-content-between">
                                     <div>
                                         <!-- Add the Company Logo -->
-                                        <img height="40" width="40" class="rounded-circle" src="<?php echo $row['company_logo']; ?>" alt="<?php echo $row['company_name']; ?>">
+                                        <img height="40" width="40"
+                                            class="rounded-circle object-fit-cover object-position-center"
+                                            src="<?php echo $row['company_logo']; ?>"
+                                            alt="<?php echo $row['company_name']; ?>">
                                     </div>
                                     <div class="d-flex flex-column">
                                         <h5 class="fw-bold"><?php echo $row['title']; ?></h5>
@@ -181,7 +186,7 @@ $postSelect = new Select($conn);
                             </div>
                         </div>
                     </div>
-                <?php
+                    <?php
                 }
                 if (empty($response)) {
                     echo "<h6 class='text-center fw-bold'>No Currently Avaliable Jobs</h6>";
@@ -194,7 +199,8 @@ $postSelect = new Select($conn);
     <!--  -->
     <section class="primary-bg py-5 full-h">
         <div class="container">
-            <h1 class="fw-semibold display-5 text-center text-white my-4 mb-5">Why choose <span id="heading-gradient-background2" class="fw-light">Jobistan?</span></h1>
+            <h1 class="fw-semibold display-5 text-center text-white my-4 mb-5">Why choose <span
+                    id="heading-gradient-background2" class="fw-light">Jobistan?</span></h1>
             <div class="row justify-content-center">
                 <div class="col-6 col-lg-4 col-md-4 col-sm-5 mb-4">
                     <div class="aboutUsCard rounded-3 border-custom shadow bg-white p-4">
@@ -283,8 +289,10 @@ $postSelect = new Select($conn);
     <!--  -->
     <?php
     include('./footer.php');
+    include('./Includes/bootstrapJs.php');
+    include('./Includes/jQuery.php');
+    include("./Includes/chatbot.php");
     ?>
-    <!--  -->
 </body>
 
 </html>

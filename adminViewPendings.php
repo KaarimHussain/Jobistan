@@ -1,4 +1,4 @@
-<?php include ("./Includes/sessionStart.php");
+<?php include("./Includes/sessionStart.php");
 if (!isset($_SESSION['adminLogged'])) {
     header("LocationL index.php");
     exit();
@@ -11,9 +11,9 @@ if (!isset($_SESSION['adminLogged'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Pakistan First Ever Job Portal | Jobistan</title>
     <?php
-    include ('./Includes/bootstrapCss.php');
-    include ('./Includes/Icons.php');
-    include ('./Includes/db.php');
+    include('./Includes/bootstrapCss.php');
+    include('./Includes/Icons.php');
+    include('./Includes/db.php');
     ?>
     <link rel="stylesheet" href="./Styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="./Styles/admin.css?v=<?php echo time(); ?>">
@@ -27,7 +27,7 @@ if (!isset($_SESSION['adminLogged'])) {
             <div class="row">
                 <div class="col-xl-3 col-lg-5 col-md-12">
                     <?php
-                    include ('./adminNav.php')
+                    include('./adminNav.php')
                         ?>
                 </div>
                 <div class="col-xl-9 col-lg-7 col-md-12">
@@ -72,7 +72,7 @@ if (!isset($_SESSION['adminLogged'])) {
                                     <tbody>
                                         <!-- Fetching Users Data -->
                                         <?php
-                                        include ('./Classes/adminData.php');
+                                        include('./Classes/adminData.php');
                                         $AdminData = new AdminData($conn);
                                         $userData = $AdminData->getAllPendingRequests();
                                         if (!empty($userData)) {
@@ -133,7 +133,7 @@ if (!isset($_SESSION['adminLogged'])) {
         <!--  -->
     </main>
     <?php
-    include ('./Includes/bootstrapJs.php');
+    include('./Includes/bootstrapJs.php');
     ?>
 </body>
 

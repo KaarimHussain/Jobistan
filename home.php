@@ -11,6 +11,13 @@ if (isset($_SESSION['logged']['role'])) {
         exit();
     }
 }
+include ('./Includes/db.php');
+include ('./Classes/Startup.php');
+$startup = new Startup($conn);
+if (!$startup->checkAdditionalInfoExist($_SESSION['logged']['id'])) {  // Check for false
+    header("Location: addAdditionalInfo.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +37,7 @@ if (isset($_SESSION['logged']['role'])) {
 
 <body>
     <?php
+    include ("./AI.php");
     include ("./navbar.php");
     include ("./secondNav.php");
     ?>
@@ -175,10 +183,11 @@ if (isset($_SESSION['logged']['role'])) {
             </div>
         </section>
     </main>
-    <?php include ('./footer.php'); ?>
     <?php
+    include ('./footer.php');
     include ("./Includes/bootstrapJs.php");
     include ("./Includes/jQuery.php");
+    include ("./Includes/chatbot.php");
     ?>
     <script>
         $(document).ready(function () {

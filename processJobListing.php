@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         include("./Classes/advanceClass.php");
         $base = new Select($conn);
         $advanceClass = new advanceClass($conn);
-
+        $required_candidate = $_POST['required_candidate'];
         $user_id = $_SESSION['logged']['id'];
         $title = $_POST['job-title'];
         $description = $_POST['job-description'];
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $experience = $_POST['experience'];
         $salary = $_POST['salary'];
         $tags = $_POST['tags'];
-        if ($base->insertDataIntoJobListing($user_id, $title, $description, $requirement, $location, $jobType, $experience, $salary, $tags)) {
+        if ($base->insertDataIntoJobListing($user_id, $title, $description, $requirement, $location, $jobType, $experience, $salary, $tags, $required_candidate)) {
             if ($advanceClass->sendOKNotificationToUser($user_id, 'Job Post has been created successfully!')) {
                 header("Location: companyProfile.php");
                 exit();

@@ -133,13 +133,16 @@ if (!isset($_SESSION['logged'])) {
 
 <body class="full-h optional-bg position-relative d-flex align-items-center">
     <section id="overScreen" class="d-flex full-h secondary-bg justify-content-center align-items-center">
-        <img src="../../Resources/JOBISTANLOGO/trans_logo1.png" height="300px" width="300px" class="object-fit-cover object-position-center" alt="">
+        <img src="../../Resources/JOBISTANLOGO/trans_logo1.png" height="300px" width="300px"
+            class="object-fit-cover object-position-center" alt="">
     </section>
-    <button class="primary-btn position-fixed top-50 start-0 translate-middle-y m-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+    <button class="primary-btn position-fixed top-50 start-0 translate-middle-y m-5" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
         <i class="bi bi-arrow-right-circle-fill"></i>
     </button>
     <!-- Offcanvas -->
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-theme="dark" data-bs-scroll="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-theme="dark" data-bs-scroll="true"
+        tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -150,10 +153,12 @@ if (!isset($_SESSION['logged'])) {
                     <!-- Step 1: Basic Info -->
                     <div id="step1" class="step">
                         <label for="full_name" class="block mb-2">Full Name:</label>
-                        <input type="text" id="full_name" name="full_name" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                        <input type="text" id="full_name" name="full_name" required
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
                         <label for="job_title" class="block mb-2">Job Title:</label>
-                        <input type="text" id="job_title" name="job_title" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                        <input type="text" id="job_title" name="job_title" required
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
                         <label for="exact_experience" class="block mb-2">Job Experience</label>
                         <select name="exact_experience" class="w-full px-3 py-2 border rounded-md mb-3">
                             <option value="fresher" selected>Fresher</option>
@@ -165,16 +170,20 @@ if (!isset($_SESSION['logged'])) {
                             <option value="15">15+ Years</option>
                         </select>
                         <label for="email" class="block mb-2">Email:</label>
-                        <input type="email" id="email" name="email" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
                         <label for="phone" class="block mb-2">Phone:</label>
-                        <input type="text" id="phone" name="phone" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                        <input type="text" id="phone" name="phone"
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
                         <label for="linkedin" class="block mb-2">LinkedIn:</label>
-                        <input type="text" id="linkedin" name="linkedin" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                        <input type="text" id="linkedin" name="linkedin"
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
                         <label for="summary" class="block mb-2">Summary:</label>
-                        <textarea id="summary" name="summary" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+                        <textarea id="summary" name="summary" rows="4"
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
 
                         <div class="resume-actions flex justify-end">
                             <button type="button" onclick="showStep(2)" class="primary-btn">
@@ -188,16 +197,20 @@ if (!isset($_SESSION['logged'])) {
                             <h3 class="text-lg font-bold mb-2">Work Experience</h3>
                             <div class="job-experience border-none">
                                 <label for="job_title_1" class="block mb-2">Job Title:</label>
-                                <input type="text" id="job_title_1" name="job_title[]" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                                <input type="text" id="job_title_1" name="job_title[]" required
+                                    class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
                                 <label for="company_name_1" class="block mb-2">Company Name:</label>
-                                <input type="text" id="company_name_1" name="company_name[]" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                                <input type="text" id="company_name_1" name="company_name[]" required
+                                    class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
                                 <label for="job_duration_1" class="block mb-2">Job Duration:</label>
-                                <input type="text" id="job_duration_1" name="job_duration[]" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                                <input type="text" id="job_duration_1" name="job_duration[]" required
+                                    class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
                                 <label for="job_description_1" class="block mb-2">Job Description:</label>
-                                <textarea id="job_description_1" name="job_description[]" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+                                <textarea id="job_description_1" name="job_description[]" rows="4"
+                                    class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
                             </div>
                         </div>
                         <div class="resume-actions flex justify-end gap-3">
@@ -212,10 +225,12 @@ if (!isset($_SESSION['logged'])) {
                     <!-- Step 3: Education and Skills -->
                     <div id="step3" class="step hidden">
                         <label for="education" class="block mb-2">Education:</label>
-                        <textarea id="education" name="education" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+                        <textarea id="education" name="education" rows="4"
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
 
                         <label for="skills" class="block mb-2">Skills:</label>
-                        <textarea id="skills" name="skills" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+                        <textarea id="skills" name="skills" rows="4"
+                            class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
 
                         <div class="resume-actions flex justify-end gap-3">
                             <button type="button" onclick="showStep(2)" class="primary-btn">
@@ -291,10 +306,10 @@ if (!isset($_SESSION['logged'])) {
     include("../../Includes/swiperJs.php");
     ?>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const swiperContainer = document.getElementById('swiper-container');
             // Show Swiper function
-            document.getElementById('showSwiperButton').addEventListener('click', function() {
+            document.getElementById('showSwiperButton').addEventListener('click', function () {
                 swiperContainer.style.display = 'block';
                 document.getElementById('hideSwiperButton').style.display = 'inline-block';
                 this.style.display = 'none'; // Hide show button
@@ -314,7 +329,7 @@ if (!isset($_SESSION['logged'])) {
                 }
             });
             // Hide Swiper function
-            document.getElementById('hideSwiperButton').addEventListener('click', function() {
+            document.getElementById('hideSwiperButton').addEventListener('click', function () {
                 swiperContainer.style.display = 'none';
                 document.getElementById('showSwiperButton').style.display = 'inline-block';
                 this.style.display = 'none'; // Hide hide button
@@ -328,7 +343,7 @@ if (!isset($_SESSION['logged'])) {
         });
 
         function showStep(step) {
-            document.querySelectorAll('.step').forEach(function(stepDiv) {
+            document.querySelectorAll('.step').forEach(function (stepDiv) {
                 stepDiv.classList.add('hidden');
             });
             document.getElementById('step' + step).classList.remove('hidden');
@@ -350,7 +365,7 @@ if (!isset($_SESSION['logged'])) {
             document.getElementById('preview_contact').innerHTML = `${email} | ${phone} | ${linkedin}`;
             document.getElementById('preview_summary').textContent = summary;
             var experienceContent = '';
-            experienceFields.forEach(function(field, index) {
+            experienceFields.forEach(function (field, index) {
                 var jobTitle = field.querySelector('[name="job_title[]"]').value;
                 var companyName = field.querySelector('[name="company_name[]"]').value;
                 var jobDuration = field.querySelector('[name="job_duration[]"]').value;
@@ -372,7 +387,7 @@ if (!isset($_SESSION['logged'])) {
 
             document.getElementById('preview_skills').innerHTML = skillsContent;
         }
-        document.querySelectorAll('input, textarea').forEach(function(element) {
+        document.querySelectorAll('input, textarea').forEach(function (element) {
             element.addEventListener('input', updateResumePreview);
         });
     </script>

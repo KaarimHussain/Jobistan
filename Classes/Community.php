@@ -1,6 +1,6 @@
 <?php
-include('./Includes/db.php');
-include('./Includes/sessionStart.php');
+include ('./Includes/db.php');
+include ('./Includes/sessionStart.php');
 // include('./Classes/Base.php');
 
 class Community
@@ -12,7 +12,7 @@ class Community
     }
     public function fetchAllCommunityPosts()
     {
-        $SQL = "SELECT * FROM community_post";
+        $SQL = "SELECT * FROM community_post ORDER BY created_at DESC";
         $stmt = $this->conn->prepare($SQL);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -66,10 +66,10 @@ class Community
     public function fetchCommentsWithUserDataForPostWithID($post_id)
     {
         // Adding joins from the table(users, profiles, community_post_comments, employer_profiles)
-        $SQL = "SELECT community_post_comments.id, community_post_comments.post_id, community_post_comments.comment_text, community_post_comments.created_at, users.username, profiles.profile_picture, employer_profiles.company_name
+        $SQL = "SELECT community_post_comments.id, community_post_comments.post_id, community_post_comments.comment_text, community_post_comments.created_at, users.username, profiles.profile_picture, employer_profiles.company_name,employer_profiles.company_logo
             FROM community_post_comments
             INNER JOIN users ON community_post_comments.user_id = users.id
-            INNER JOIN profiles ON users.id = profiles.user_id
+            LEFT JOIN profiles ON users.id = profiles.user_id
             LEFT JOIN employer_profiles ON users.id = employer_profiles.user_id
             WHERE community_post_comments.post_id = ?
             ORDER BY community_post_comments.id DESC";

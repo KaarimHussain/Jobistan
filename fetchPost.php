@@ -1,11 +1,11 @@
 <?php
-include ('./Includes/sessionStart.php');
+include('./Includes/sessionStart.php');
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // sleep(2);
-    include ('./Includes/db.php');
-    include ('./Classes/Base.php');
+    include('./Includes/db.php');
+    include('./Classes/Base.php');
 
     $searchBar = isset($_POST['searchBarVal']) ? $_POST['searchBarVal'] : '';
     $filters = isset($_POST['filters']) ? $_POST['filters'] : [];
@@ -46,15 +46,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($jobs)) {
         foreach ($jobs as $job) {
             $createdAt = new DateTime($job['created_at']);
-            $formattedDate = $createdAt->format('F j, Y, g:i a');
+            $formattedDate = $createdAt->format('F j, Y');
+            $jobStatus = $mainClass->showJobStatus($job['job_id']);
             ?>
             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12 col-12 mb-4">
                 <div class="jobCardsContainer">
                     <div class="jobCardInnerTop bg-cool1">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div
+                            class="d-flex justify-content-lg-between justify-content-md-center justify-content-center flex-lg-row flex-md-column flex-column align-items-center">
                             <div class="py-2 px-3 text-center bg-white rounded-pill text-dark">
                                 <small class="fw-bold">
                                     <?php echo htmlspecialchars($formattedDate); ?>
+                                </small>
+                            </div>
+                            <div class="py-2 px-3 text-center bg-white rounded-pill text-dark">
+                                <small class="fw-bold" style="font-size:12px;">
+                                    Status:
+                                    <?php echo $jobStatus['job_status']; ?>
                                 </small>
                             </div>
                         </div>
@@ -69,9 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="mb-2">
                             <div>
-                                <small class="text-nowrap fw-semibold"><?php echo strtoupper(htmlspecialchars($job['job_type'])) ?>
+                                <small
+                                    class="text-nowrap fw-semibold text-body-secondary"><?php echo strtoupper(htmlspecialchars($job['job_type'])) ?>
                                     | </small>
-                                <small class="text-wrap fw-semibold"><?php echo htmlspecialchars($job['tags']); ?> |
+                                <br>
+                                <small class="text-body-secondary d-inline-flex align-items-center fw-semibold text-truncate"
+                                    style="max-width:100%;">
+                                    <?php echo htmlspecialchars($job['tags']); ?>
                                 </small>
                             </div>
                         </div>

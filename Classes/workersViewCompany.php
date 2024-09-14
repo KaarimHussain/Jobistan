@@ -1,7 +1,7 @@
 <?php
-include('./Includes/db.php');
-include('./Includes/sessionStart.php');
-include('./Interfaces/Workers.php');
+include ('./Includes/db.php');
+include ('./Includes/sessionStart.php');
+include ('./Interfaces/Workers.php');
 class WorkerForCompany implements IWorker
 {
     private $conn;
@@ -63,7 +63,7 @@ class WorkerForCompany implements IWorker
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
-            return $result->fetch_assoc(MYSQLI_ASSOC);
+            return $result->fetch_assoc();
         } else {
             return null;
         }

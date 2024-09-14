@@ -146,6 +146,7 @@ CREATE TABLE applied_jobs (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     user_id INT NOT NULL,
     job_id INT NOT NULL,
+    applied_at DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (job_id) REFERENCES job_listings(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -253,7 +254,7 @@ CREATE TABLE user_work_experience(
     company_name varchar(255) not null default 'Undefined',
     work_description text default null,
     company_start_date DATE DEFAULT current_timestamp,
-    company_end_date DATE DEFAULT current_timestamp,
+    company_end_date DATE DEFAULT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -364,10 +365,11 @@ CREATE TABLE companies_applied_jobs(
     job_id INT NOT NULL,
     employers_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (users_id) REFERENCES users(id),
-    FOREIGN KEY (job_id) REFERENCES job_listings(id),
+    FOREIGN KEY (users_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (job_id) REFERENCES job_listings(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (employers_id) REFERENCES employer_profiles(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 
 CREATE TABLE workers_resume(
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -435,11 +437,47 @@ CREATE TABLE backup_external_user_resume(
     job_title VARCHAR(100) NOT NULL,
     job_experience VARCHAR(50) NOT NULL
 );
+CREATE TABLE backup_users_additional_info (
+    info_id INT(11) NOT NULL AUTO_INCREMENT,
+    user_id INT(11) NOT NULL,
+    user_description TEXT DEFAULT NULL,
+    user_interest VARCHAR(100) DEFAULT NULL,
+    user_hobbies VARCHAR(100) DEFAULT NULL,
+    user_main_profession VARCHAR(100) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (info_id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE scheduledInterviews(
+	 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+     user_id INT NOT NULL,
+     job_id INT NOT NULL,
+     interviewedUser VARCHAR(255) NOT NULL,
+     interviewedEmail VARCHAR(255) NOT NULL,
+     job_title VARCHAR(255) NOT NULL,
+     interviewed_description TEXT DEFAULT NULL,
+     interviewed_date DATE DEFAULT NOW(),
+     interviewed_time TIME DEFAULT NOW(),
+     created_at DATETIME NOT NULL DEFAULT NOW(),
+     interviewStatus ENUM('pending','interview_on','interview_off') NOT NULL DEFAULT 'pending',
+     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+     FOREIGN KEY (job_id) REFERENCES job_listings(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
-ALTER TABLE
-    employer_profiles
-ADD
-    COLUMN actions ENUM('rejected', 'pending', 'approved') NOT NULL DEFAULT 'pending';
+CREATE TABLE UsersInbox(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    messages TEXT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+ALTER TABLE UsersInbox ADD seen TINYINT(1) DEFAULT 0;
+ALTER TABLE employer_profiles ADD COLUMN actions ENUM('rejected', 'pending', 'approved') NOT NULL DEFAULT 'pending';
+ALTER TABLE job_listings ADD COLUMN job_status ENUM('open','close') NOT NULL DEFAULT 'open';
+ALTER TABLE job_listings ADD COLUMN required_candidate INT NOT NULL DEFAULT 1;
 
 -- TRIGGERS
 -- Trigger for profiles table
@@ -491,7 +529,8 @@ WHERE
 END / / DELIMITER;
 
 -- Trigger for employer_profiles table
-DELIMITER / / CREATE TRIGGER tr_delete_user_backup_employer_profiles
+DELIMITER //
+CREATE TRIGGER tr_delete_user_backup_employer_profiles
 AFTER
     DELETE ON users FOR EACH ROW BEGIN
 INSERT INTO
@@ -569,7 +608,8 @@ WHERE
 END / / DELIMITER;
 
 -- Trigger for user_work_experience table
-DELIMITER / / CREATE TRIGGER tr_delete_user_backup_user_work_experience
+DELIMITER // 
+CREATE TRIGGER tr_delete_user_backup_user_work_experience
 AFTER
     DELETE ON users FOR EACH ROW BEGIN
 INSERT INTO
@@ -596,7 +636,8 @@ DELETE FROM
 WHERE
     user_id = OLD.id;
 
-END / / DELIMITER;
+END 
+DELIMITER //;
 
 ALTER TABLE
     users
@@ -803,7 +844,6 @@ create table resumes2 (
     language_list varchar(255),
     foreign key (user_id) references users(id)
 );
-
 -- select * from resumes002;
 create table resumes3 (
     user_id int not null,
@@ -901,3 +941,14 @@ ALTER TABLE
     resumes
 ADD
     COLUMN job_title_experience VARCHAR(255) NOT NULL DEFAULT 'fresher';
+    
+CREATE TABLE hired_history (
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    job_id INT NOT NULL,
+    emp_id INT NOT NULL,
+    hired_at DATETIME NOT NULL DEFAULT NOW(),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (job_id) REFERENCES job_listings(id) ON DELETE CASCADE,
+    FOREIGN KEY (emp_id) REFERENCES employer_profiles(user_id) ON DELETE CASCADE
+)

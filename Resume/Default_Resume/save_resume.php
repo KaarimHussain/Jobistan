@@ -28,7 +28,6 @@ foreach ($_POST['job_title'] as $index => $job_title) {
     $company_name = $_POST['company_name'][$index];
     $job_duration = $_POST['job_duration'][$index];
     $job_description = $_POST['job_description'][$index];
-
     $experience .= $job_title . " at " . $company_name . " (" . $job_duration . "): " . $job_description . "\n";
 }
 

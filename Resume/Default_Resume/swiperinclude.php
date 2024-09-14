@@ -131,7 +131,7 @@
         </div>
     </div>
     <?php
-    include ('../../Includes/bootstrapJs.php');
+    // include ('../../Includes/bootstrapJs.php');
     ?>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

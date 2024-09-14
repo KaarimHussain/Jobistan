@@ -1,6 +1,6 @@
 <?php
-include ("./Includes/db.php");
-include ("./Includes/sessionStart.php");
+include("./Includes/db.php");
+include("./Includes/sessionStart.php");
 // Using PHP Mailer Library Class for mailing
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -133,7 +133,7 @@ class Mailing
     }
     public function insertIntoOTPTable($recovery_email)
     {
-        include ("./Includes/sessionStart.php");
+        include("./Includes/sessionStart.php");
         if ($user_id = $this->getUserIDByEmail($recovery_email)) {
             $otp = $this->generateOTP();
             $sql = "INSERT INTO recoveryEmail (user_id, otp, conformed) VALUES (?, ?, FALSE)";
@@ -238,7 +238,7 @@ class Mailing
             $mail->send();
             return true;
         } catch (Exception $e) {
-            $_SESSION['contact_error'] = "Message could not be sent from Admin. Mailer";
+            $_SESSION['contact_error'] = $e->getMessage();
             return false;
         }
     }
@@ -375,7 +375,7 @@ class Mailing
         <div class=\"content\">
             <h2>Dear Recruiters,</h2>
             <p>Thanks for Registering on Jobistan</p>
-            <p>Your Account will be approved by our admin. which will take 2 business days so please be patient!</p>
+            <p>Your Account has been approved by our Admin! Please try loggin in now</p>
             <ul>
                 <li><strong>New Job Postings:</strong> Check out the latest job openings on our platform. <a href=\"#\">Explore now</a>.</li>
                 <li><strong>Resume Tips:</strong> Enhance your resume with our expert tips. <a href=\"#\">Read more</a>.</li>
@@ -403,24 +403,25 @@ class Mailing
             $mail->Password = 'ddtm bvsm gcyk kmny'; // Your Gmail password or App Password
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
-
             // Sender info
             $mail->setFrom('jobistan.karachi.pk@gmail.com', 'JOBISTAN Contact Team');
-
             // Recipient
             $mail->addAddress($email);
-
             // Content
             $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body = $body;
+            $mail->AltBody = 'Dear Recruiters, Thanks for Registering on Jobistan. Your Account has been approved by our admin... Please try checking now!';
             // Send email
             $mail->send();
             return true;
         } catch (Exception $e) {
-            $_SESSION['contact_error'] = "Message could not be sent from Sender. Mailer";
             return false;
         }
+    }
+    public function sendMailToSenderForRequestApprove($companyName, $email, $subject)
+    {
+
     }
     public function matchOTP($tempOTP, $recover_OTP)
     {
@@ -519,72 +520,88 @@ class Mailing
             $mail->send();
             return true;
         } catch (Exception $e) {
-            $_SESSION['contact_error'] = "Message could not be sent from Sender. Mailer";
             return false;
         }
     }
-    public function sendMailToSenderForRequestApprove($name = "", $email = "", $subject = "")
-    {
+    public function sendMailToSenderForInterviewSchedule(
+        $username,
+        $email = "",
+        $recruiter_email,
+        $recruiter_company_name,
+        $job_title,
+        $job_description,
+        $interview_date,
+        $interview_time
+    ) {
         $body = "
         <html>
-    <head>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                line-height: 1.6;
-                color: #333;
-            }
-            .header {
-                background-color: #f4f4f4;
-                padding: 20px;
-                text-align: center;
-                border-bottom: 1px solid #ccc;
-            }
-            .content {
-                padding: 20px;
-            }
-            .footer {
-                background-color: #f4f4f4;
-                padding: 10px;
-                text-align: center;
-                border-top: 1px solid #ccc;
-            }
-            .button {
-                display: inline-block;
-                padding: 10px 20px;
-                color: white;
-                background-color: #28a745;
-                text-decoration: none;
-                border-radius: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class=\"header\">
-            <h1>$subject</h1>
-        </div>
-        <div class=\"content\">
-            <h2>Dear Recruiters,</h2>
-            <p>Account Approved</p>
-            <p>Your account has successfully been approved by Jobistan.pk</p>
-            <small>Reason -></small>
-            <ul>
-                <li>Your Company has traceable identity</li>
-                <li>Professional Communication</li>
-                <li>Domain Authenticity</li>
-            </ul>
-            <p>We are committed to helping you find the perfect workers. If you have any questions or need assistance, please don't hesitate to contact us.</p>
-            <p>Thank you for being a valued member of Jobistan!</p>
-            <p>Best regards,<br>The Jobistan Team</p>
-            <a href=\"localhost/JobistanVision/index.php\" target=\"_blank\" class=\"button\">Visit Jobistan</a>
-        </div>
-        <div class=\"footer\">
-            <p>&copy; 2024 Jobistan. All rights reserved.</p>
-            <p><a href=\"localhost/JobistanVision/privacyPolicy.php\">Privacy Policy</a></p>
-        </div>
-    </body>
-    </html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                }
+                .header {
+                    background-color: #f4f4f4;
+                    padding: 20px;
+                    text-align: center;
+                    border-bottom: 1px solid #ccc;
+                }
+                .content {
+                    padding: 20px;
+                }
+                .footer {
+                    background-color: #f4f4f4;
+                    padding: 10px;
+                    text-align: center;
+                    border-top: 1px solid #ccc;
+                }
+                .button {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    color: white;
+                    background-color: #28a745;
+                    text-decoration: none;
+                    border-radius: 5px;
+                }
+                .list {
+                    margin-top: 10px;
+                }
+                .list li {
+                    margin-bottom: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class=\"header\">
+                <h1>Jobistan.pk</h1>
+            </div>
+            <div class=\"content\">
+                <h2>Dear $username,</h2>
+                <p>We are pleased to inform you that you have been selected for an interview for the position of <strong>$job_title</strong> at <strong>$recruiter_company_name</strong>.</p>
+                <p><strong>Job Description:</strong></p>
+                <p>$job_description</p>
+                <p><strong>Interview Details:</strong></p>
+                <ul class=\"list\">
+                    <li><strong>Interview Date:</strong> $interview_date</li>
+                    <li><strong>Interview Time:</strong> $interview_time</li>
+                    <li><strong>Recruiter Email:</strong> $recruiter_email</li>
+                    <li><strong>Company:</strong> $recruiter_company_name</li>
+                    <li><strong>Position:</strong> $job_title</li>
+                </ul>
+                <p>If you have any questions or need further information, please feel free to contact us at <a href=\"mailto:$recruiter_email\">$recruiter_email</a>.</p>
+                <p>We look forward to meeting you!</p>
+                <p>Best regards,<br>The Jobistan Team</p>
+            </div>
+            <div class=\"footer\">
+                <p>&copy; 2024 Jobistan. All rights reserved.</p>
+                <p><a href=\"localhost/JobistanVision/privacyPolicy.php\">Privacy Policy</a></p>
+            </div>
+        </body>
+        </html>
         ";
+
         try {
             $mail = new PHPMailer(true);
             // Server settings for Gmail
@@ -597,20 +614,21 @@ class Mailing
             $mail->Port = 587;
 
             // Sender info
-            $mail->setFrom('jobistan.karachi.pk@gmail.com', 'JOBISTAN Contact Team');
+            $mail->setFrom('jobistan.karachi.pk@gmail.com', 'Jobistan Contact Team');
 
             // Recipient
             $mail->addAddress($email);
 
             // Content
             $mail->isHTML(true);
-            $mail->Subject = $subject;
+            $mail->Subject = "Interview Scheduled for " . strtoupper($job_title) . " Position";
             $mail->Body = $body;
+
             // Send email
             $mail->send();
             return true;
         } catch (Exception $e) {
-            $_SESSION['contact_error'] = "Message could not be sent from Sender. Mailer";
+            $_SESSION['contact_error'] = "Message could not be sent. Mailer Error: " . $e->getMessage();
             return false;
         }
     }

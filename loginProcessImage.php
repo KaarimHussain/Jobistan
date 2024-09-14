@@ -1,8 +1,8 @@
 <?php
-include ("./Includes/sessionStart.php");
-include ("./Classes/ImageDetection.php");
-include ("./Classes/Base.php");
-include ("./Includes/db.php");
+include("./Includes/sessionStart.php");
+include("./Classes/ImageDetection.php");
+include("./Classes/Base.php");
+include("./Includes/db.php");
 
 if (isset($_SESSION['logged'])) {
     header("Location: home.php");
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: loginthroughImage.php");
                 exit();
             }
-            include ('./Classes/mailing.php');
+            include('./Classes/mailing.php');
             $mail = new Mailing($conn);
             if ($mail->sendMailOTP($row['email'])) {
                 $email = $row['email'];

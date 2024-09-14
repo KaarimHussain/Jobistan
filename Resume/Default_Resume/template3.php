@@ -1,5 +1,5 @@
 <?php
-include ('../../Includes/sessionStart.php');
+include('../../Includes/sessionStart.php');
 if (!isset($_SESSION['logged'])) {
     header("Location:../../index.php");
     exit();
@@ -43,8 +43,8 @@ foreach ($experience_lines as $line) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get your Resume - Jobistan</title>
     <?php
-    include ('../../Includes/bootstrapCss.php');
-    include ('../../Includes/tailwindCss.php');
+    include('../../Includes/bootstrapCss.php');
+    include('../../Includes/tailwindCss.php');
     ?>
     <link rel="stylesheet" href="../../Styles/main.css?v=<?php echo time(); ?>">
 </head>
@@ -111,7 +111,7 @@ foreach ($experience_lines as $line) {
         <!-- Modal -->
     </main>
     <?php
-    include ('../../Includes/bootstrapJs.php');
+    include('../../Includes/bootstrapJs.php');
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script>

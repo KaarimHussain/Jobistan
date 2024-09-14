@@ -19,36 +19,59 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $myProfilePicture = $base->SelectAllUsersWithProfile($user_id);
             $userName = $base->SelectUserWithID($row['user_id']);
             $userProfile = $base->SelectAllUsersWithProfile($row['user_id']);
-            $companyProf = $base->selectCompanyForProfilesWithID($user_id);
+            $companyProf = $base->selectCompanyForProfilesWithID($row['user_id']);
             $userMainProf = $base->getUserAdditionInfoByID($row['user_id']);
             $likesCount = $communityData->fetchLikeCount($row['id']);
             $comment_count = $communityData->fetchCommentCount($row['id']);
-            $likeState = $communityData->getLikeState($user_id, $row['id']);
+            // $likeState = $communityData->getLikeState($user_id, $row['id']);
             $created_at = $base->timeAgo($row['created_at']);
-?>
+            ?>
             <div class="col-12 mb-4">
                 <div class="bg-white rounded-2 py-3 px-4">
                     <div class="d-flex gap-2 align-items-center justify-content-between">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="<?php echo htmlspecialchars($userProfile[0]['profile_picture']); ?>" height="60px" width="60px" alt="Profile Picture" class="rounded-circle object-fit-cover object-position-center border border-dark">
+                            <?php
+                            if (!empty($userProfile) && !empty($userProfile[0]['profile_picture'])) {
+                                echo '<img src="' . $userProfile[0]['profile_picture'] . '" height="40px" width="40px" class="rounded-circle object-fit-cover object-position-none">';
+                            } else if (!empty($companyProf) && !empty(['company_logo'])) {
+                                echo '<img src="' . $companyProf['company_logo'] . '" height="40px" width="40px" class="rounded-circle object-fit-cover object-position-none">';
+                            } else {
+                                // add the default profile icon of bootstrap icon
+                                echo '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"/>
+                                </svg>';
+                            }
+                            ?>
+                            <!--                             
+                            <img src="<?php echo htmlspecialchars($userProfile[0]['profile_picture']) ?>" height="60px" width="60px"
+                                alt="Profile Picture"
+                                class="rounded-circle object-fit-cover object-position-center border border-dark"> -->
+                            <!--  -->
                             <div class="d-flex flex-column">
                                 <span class="fw-bold">
                                     <?php echo htmlspecialchars($userName['username']); ?>
                                 </span>
                                 <?php if (isset($userMainProf['user_main_profession'])) { ?>
-                                    <small class="text-muted"><?php echo htmlspecialchars($userMainProf['user_main_profession']); ?></small>
+                                    <small
+                                        class="text-muted"><?php echo htmlspecialchars($userMainProf['user_main_profession']); ?></small>
                                 <?php } ?>
-                                <small class="fw-light text-xs"><?php echo $created_at; ?> <i class="bi bi-globe-americas"></i></small>
+                                <small class="fw-light text-xs"><?php echo $created_at; ?> <i
+                                        class="bi bi-globe-americas"></i></small>
                             </div>
                         </div>
                     </div>
                     <hr class="primary-color">
                     <div class="my-3">
-                        <p class="fw-normal text-wrap" style="word-wrap: break-word; overflow-wrap: break-word;"><?php echo nl2br(htmlspecialchars($row['post_content'])); ?></p>
+                        <p class="fw-normal text-wrap" style="word-wrap: break-word; overflow-wrap: break-word;">
+                            <?php echo nl2br(htmlspecialchars_decode(htmlspecialchars($row['post_content'], ENT_QUOTES))); ?>
+                        </p>
+
                     </div>
                     <?php if ($row['post_image'] !== null && !empty($row['post_image'])) { ?>
                         <div class="my-1 p-1">
-                            <img src="<?php echo htmlspecialchars($row['post_image']); ?>" class="img-fluid rounded-3 object-fit-cover object-position-center" alt="<?php echo $row['id']; ?>">
+                            <img src="<?php echo htmlspecialchars($row['post_image']); ?>"
+                                class="img-fluid rounded-3 object-fit-cover object-position-center" alt="<?php echo $row['id']; ?>">
                         </div>
                     <?php } ?>
                     <hr class="primary-color">
@@ -57,28 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     ?> Likes</small> -->
                         <small><?php echo $comment_count; ?> Comments</small>
                     </div>
-                    <div class="my-3 d-flex justify-content-between align-items-center">
-                        <!-- <div class="d-flex gap-3 align-items-center">
-                            <!-- Checking the State of the Like Button -->
-                        <?php
-                        if ($likeState == true) {
-                        ?>
-                            <!-- <div class="d-flex align-items-center gap-2" id="likeBtnWrapper<?php echo $row['id']; ?>">
-                                    <i class="bi bi-hand-thumbs-up-fill text-primary RemovelikeBtn cursor-pointer" data-post-id="<?php echo $row['id']; ?>" id="likeBtn-<?php echo $row['id']; ?>"></i>
-                                    Liked
-                                </div> -->
-                        <?php
-                        } else {
-                        ?>
-                            <!-- <div class="d-flex align-items-center gap-2" id="likeBtnWrapper<?php echo $row['id']; ?>">
-                                    <i class="bi bi-hand-thumbs-up cursor-pointer likeBtn" data-post-id="<?php echo $row['id']; ?>" id="likeBtn-<?php echo $row['id']; ?>"></i>
-                                    Like
-                                </div> -->
-                        <?php
-                        }
-                        ?>
-                    </div>
-                    <a class="d-flex align-items-center gap-2 text-decoration-none secondary-color cursor-pointer" data-bs-toggle="collapse" href="#collapseComments<?php echo $row['id']; ?>" role="button" aria-expanded="false" aria-controls="collapseComments<?php echo $row['id']; ?>">
+                    <a class="d-flex align-items-center gap-2 text-decoration-none secondary-color cursor-pointer"
+                        data-bs-toggle="collapse" href="#collapseComments<?php echo $row['id']; ?>" role="button"
+                        aria-expanded="false" aria-controls="collapseComments<?php echo $row['id']; ?>">
                         <i class="bi bi-chat-left-quote"></i>
                         <span>Comment</span>
                     </a>
@@ -88,12 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div style="height: 30vh; overflow-y: auto; overflow-x: hidden;" class="px-4">
                             <div class="row">
                                 <div class="col-12 d-flex gap-2 align-items-center mb-3">
-                                    <?php if ($_SESSION['logged']['role'] == 'recruiter') { ?>
-                                        <img src="<?php echo htmlspecialchars($companyProf['company_logo']); ?>" height="50px" width="50px" class="rounded-circle object-fit-cover object-position-none">
-                                    <?php } else if ($_SESSION['logged']['role'] == 'worker') { ?>
-                                        <img src="<?php echo htmlspecialchars($myProfilePicture[0]['profile_picture']); ?>" height="50px" width="50px" class="rounded-circle object-fit-cover object-position-none">
+                                    <?php if (!empty($companyProf) && !empty(['company_logo'])) { ?>
+                                        <img src="<?php echo htmlspecialchars($companyProf['company_logo']); ?>" height="40px"
+                                            width="40px" class="rounded-circle object-fit-cover object-position-center">
+                                    <?php } else if (!empty($userProfile) && !empty($userProfile[0]['profile_picture'])) { ?>
+                                            <img src="<?php echo htmlspecialchars($userProfile[0]['profile_picture']); ?>" height="40px"
+                                                width="40px" class="rounded-circle object-fit-cover object-position-center">
                                     <?php } ?>
-                                    <input type="text" name="inputComment" class="form-control rounded-pill border border-dark optional-bg comment_input" value="" data-post-id="<?php echo $row['id']; ?>" placeholder="Write a Comment...">
+                                    <input type="text" name="inputComment"
+                                        class="form-control rounded-pill border border-dark optional-bg comment_input" value=""
+                                        data-post-id="<?php echo $row['id']; ?>" placeholder="Write a Comment...">
                                     <button class="primary-btn" id="sendCommentBtn"><i class="bi bi-send-fill"></i></button>
                                 </div>
                                 <div id="responseComment<?php echo $row['id']; ?>"></div>
@@ -103,20 +111,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </div>
             </div>
             </div>
-        <?php
+            <?php
         }
         ?>
         <script src="./Scripts/getLikeRatio.js?v=<?php echo time() ?>"></script>
 
-    <?php
+        <?php
     } else {
-    ?>
+        ?>
         <div class="col-12">
             <div class="bg-white py-3 px-4 rounded-3 text-center">
                 <h5 class="fw-bold">No Post Found</h5>
             </div>
         </div>
-<?php
+        <?php
     }
 } else {
     header("Location: index.php");

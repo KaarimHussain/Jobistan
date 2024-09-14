@@ -1,11 +1,11 @@
 <?php
-include('../../Includes/sessionStart.php');
+include ('../../Includes/sessionStart.php');
 if (!isset($_SESSION['logged'])) {
     header("Location: ../../index.php");
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
-    include('../../Includes/db.php');
+    include ('../../Includes/db.php');
     $user_id = $_SESSION['logged']['id'];
     $stmt = $conn->prepare("SELECT * FROM workers_resume WHERE user_id = $user_id");
     $stmt->execute();

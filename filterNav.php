@@ -3,11 +3,13 @@
     <!-- Collapsible filter section -->
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="fw-bold">More Filter</h1>
-        <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#navTabs" aria-expanded="false" aria-controls="navTabs">
+        <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#navTabs" aria-expanded="false"
+            aria-controls="navTabs">
             <i class="bi bi-caret-right-fill"></i>
         </button>
     </div>
-    <div class="collapse show collapse-horizontal py-4 px-3 border-end border-secondary mt-3 navbar-expand-lg" id="navTabs">
+    <div class="collapse show collapse-horizontal py-4 px-3 border-end border-secondary mt-3 navbar-expand-lg"
+        id="navTabs">
         <p class="secondary-color fw-bold pt-3">Working schedule</p>
         <ul class="nav flex-column row gap-3">
             <li class="nav-item col-12">

@@ -90,7 +90,8 @@ if (isset($_SESSION['logged'])) {
                             <div class="col-12 mb-2 d-flex justify-content-between gap-3">
                                 <button type="button" id="workerBtn" class="btn rolesBtnActive col mb-3 fw-bold"
                                     data-roles="worker">
-                                    <i class="bi bi-person-fill"></i> Worker
+                                    <i class="bi bi-person-fill"></i> Job Seeker
+
                                 </button>
                                 <button type="button" id="recruiterBtn" class="btn rolesBtn col mb-3 fw-bold"
                                     data-roles="recruiter">

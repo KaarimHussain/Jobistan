@@ -1,8 +1,5 @@
 <?php
-
-use Twilio\Rest\Accounts\V1\Credential\PublicKeyList;
-
-include ("./Includes/sessionStart.php");
+include("./Includes/sessionStart.php");
 if (!isset($_SESSION['logged'])) {
     header("Location: index.php");
     exit();
@@ -11,7 +8,7 @@ if (!isset($_GET['job_id'])) {
     header("Location: home.php");
     exit();
 }
-include ("./Includes/db.php");
+include("./Includes/db.php");
 $job_id = $_GET['job_id'];
 $user_id = $_SESSION['logged']['id'];
 ?>
@@ -23,9 +20,9 @@ $user_id = $_SESSION['logged']['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Details | Jobistan</title>
     <?php
-    include ('./Includes/bootstrapCss.php');
-    include ('./Includes/Icons.php');
-    include ('./Includes/swiperCss.php');
+    include('./Includes/bootstrapCss.php');
+    include('./Includes/Icons.php');
+    include('./Includes/swiperCss.php');
     ?>
     <link rel="stylesheet" href="./Styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="./Styles/home.css?v=<?php echo time(); ?>">
@@ -34,12 +31,15 @@ $user_id = $_SESSION['logged']['id'];
 
 <body>
     <?php
-    include ('./navbar.php');
+    include('./navbar.php');
     $base = new Select($conn);
-    $jobData = $base->SelectJobsWithCompanyWithID($job_id);
-    $getSavedPostRatio = $base->getSavedPostRatio($user_id);
-    $jobData = $jobData[0];
+    $jobStatus = $base->showJobStatus($job_id);
+
+    $jobData = $base->SelectJobsWithCompanyWithIDForViewPost($job_id);
+    $getSavedPostRatio = $base->getSavedPostRatio($user_id, $job_id);
+    // $jobData = $jobData[0];
     $recommendedJobsData = $base->getMoreSimilarJobs($jobData['title']);
+    $checkAppliedRatio = $base->checkAppliedRatio($user_id, $job_id);
     if (!$jobData) {
         echo "Error: No job data found.";
         exit();
@@ -48,7 +48,8 @@ $user_id = $_SESSION['logged']['id'];
     <main>
         <div class="container my-5">
             <div class="d-flex gap-3 align-items-center">
-                <img src="<?php echo $jobData['company_logo'] ?? 'default_logo.png'; ?>" height="140px" width="140px"
+                <img src="<?php echo $jobData['company_logo'] ?? './Resources/JOBISTANLOGO/default-profile-picture.png'; ?>"
+                    height="140px" width="140px"
                     class="image-fluid rounded-circle object-fit-cover object-position-none">
                 <div
                     class="d-flex align-items-center justify-content-lg-between justify-content-md-center justify-content-center w-100 flex-lg-row flex-md-column flex-column">
@@ -67,34 +68,73 @@ $user_id = $_SESSION['logged']['id'];
                             <?php echo $jobData['location']; ?>
                         </small>
                     </div>
-                    <div class="d-flex gap-2">
-                        <?php
-                        if (!empty($getSavedPostRatio)) {
-                            ?>
-                            <form action="./deletePost.php" method="post">
-                                <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
-                                <button type="submit" class="checkBookedMarkBtn"><i
-                                        class="bi bi-bookmark-fill"></i></button>
-                            </form>
+                    <div class="d-flex gap-2 flex-column">
+                        <div class="d-flex flex-column gap-2">
+                            <span class="rounded-pill bg-dark py-2 px-3 text-white">
+                                Status:
+                                <?php
+                                echo strtoupper($jobStatus['job_status']);
+                                ?>
+                            </span>
+                            <b class="py-2 px-3 rounded-2 bg-dark text-white">
+                                <small>
+                                    Required Candidate :
+                                    <?php
+                                    echo $jobStatus['required_candidate'];
+                                    ?>
+                                </small>
+                            </b>
+                        </div>
+
+                        <div class="d-flex gap-2">
                             <?php
-                        } else {
+                            if (!empty($getSavedPostRatio)) {
+                                ?>
+                                <form action="./deletePost.php" method="post">
+                                    <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
+                                    <button type="submit" class="checkBookedMarkBtn"><i
+                                            class="bi bi-bookmark-fill"></i></button>
+                                </form>
+                                <?php
+                            } else {
+                                ?>
+                                <form action="./savePost.php" method="post">
+                                    <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
+                                    <button type="submit" class="checkBookedMarkBtn"><i class="bi bi-bookmark"></i></button>
+                                </form>
+                                <?php
+                            }
+                            if ($checkAppliedRatio) {
+                                ?>
+                                <button class="primary-btn" type="button">
+                                    <i class="bi bi-check2"></i>
+                                    Applied
+                                </button>
+                                <?php
+                            } else {
+                                if ($jobStatus['required_candidate'] <= 0 || $jobStatus['job_status'] == 'close') {
+                                    ?>
+                                    <div
+                                        class="primary-bg rounded-2 d-flex align-items-center justify-content-center text-white fw-semibold py-2 px-3">
+                                        No Seats Left
+                                    </div>
+                                    <?php
+                                } else if ($jobStatus['required_candidate'] > 0) {
+                                    ?>
+                                        <form action="./handleApplyJob.php" method="post">
+                                            <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
+                                            <input type="hidden" name="company_id"
+                                                value="<?php echo $jobData['employer_profile_id']; ?>">
+                                            <button class="primary-btn" name="handleApplyJobsBtn">
+                                                <i class="bi bi-lightning-charge-fill"></i>
+                                                Apply
+                                            </button>
+                                        </form>
+                                    <?php
+                                }
+                            }
                             ?>
-                            <form action="./savePost.php" method="post">
-                                <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
-                                <button type="submit" class="checkBookedMarkBtn"><i class="bi bi-bookmark"></i></button>
-                            </form>
-                            <?php
-                        }
-                        ?>
-                        <form action="./handleApplyJob.php" method="post">
-                            <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
-                            <input type="hidden" name="company_id"
-                                value="<?php echo $jobData['employer_profile_id']; ?>">
-                            <button class="primary-btn" name="handleApplyJobsBtn">
-                                <i class="bi bi-lightning-charge-fill"></i>
-                                Apply
-                            </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,43 +146,39 @@ $user_id = $_SESSION['logged']['id'];
                     </h5>
                 </div>
                 <div class="col-12 my-2">
-                    <p><?php echo $jobData['description'] ?? 'N/A'; ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($jobData['description'], ENT_QUOTES, 'UTF-8')) ?? 'N/A'; ?></p>
                 </div>
+                <hr class="primary-color">
                 <div class="col-12">
                     <h5 class="fw-semibold">
                         Job Requirements
                     </h5>
                 </div>
                 <div class="col-12 my-2">
-                    <p><?php echo $jobData['requirements'] ?? 'N/A'; ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($jobData['requirements'], ENT_QUOTES, 'UTF-8')) ?? 'N/A'; ?>
+                    </p>
                 </div>
+                <hr class="primary-color">
                 <div class="col-12">
                     <h5 class="fw-semibold">
                         Company Culture
                     </h5>
                 </div>
                 <div class="col-12 my-2">
-                    <p><?php echo $jobData['company_culture'] ?? 'N/A'; ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($jobData['company_culture'], ENT_QUOTES, 'UTF-8')) ?? 'N/A'; ?>
+                    </p>
                 </div>
+                <hr class="primary-color">
                 <div class="col-12">
                     <h5 class="fw-semibold">
                         Company Benefits
                     </h5>
                 </div>
                 <div class="col-12 my-2">
-                    <p><?php echo $jobData['company_benefits'] ?? 'N/A'; ?></p>
-                </div>
-                <hr class="primary-color">
-                <div class="col-12">
-                    <h5 class="fw-semibold">Requirements</h5>
-                </div>
-                <div class="col-12 my-2">
-                    <p>
-                        <?php
-                        echo str_replace(',', "</br>", $jobData['requirements']);
-                        ?>
+                    <p><?php echo nl2br(htmlspecialchars($jobData['company_benefits'], ENT_QUOTES, 'UTF-8')) ?? 'N/A'; ?>
                     </p>
                 </div>
+                <hr class="primary-color">
                 <div class="col-12">
                     <h5 class="fw-semibold">
                         Tags
@@ -246,9 +282,9 @@ $user_id = $_SESSION['logged']['id'];
         </div>
     </main>
     <?php
-    include ('./footer.php');
-    include ('./Includes/bootstrapJs.php');
-    include ('./Includes/swiperJs.php');
+    include('./footer.php');
+    include('./Includes/bootstrapJs.php');
+    include('./Includes/swiperJs.php');
     ?>
     <script src="./Scripts/viewJobDetails.js"></script>
 </body>

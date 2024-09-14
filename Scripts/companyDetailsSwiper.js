@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 4,
+        // Adding Space Between slides
+        slidesPerView: 2,
+        spaceBetween: 20,
         // Breakpoints for SlidePerView
         breakpoints: {
             1024: {
-                slidesPerView: 3,
+                slidesPerView: 2,
             },
             768: {
                 slidesPerView: 2,

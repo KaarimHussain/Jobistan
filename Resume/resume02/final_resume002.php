@@ -6,7 +6,7 @@ $email = isset($_GET['email']) ? htmlspecialchars($_GET['email']) : '';
 $phone = isset($_GET['phone']) ? htmlspecialchars($_GET['phone']) : '';
 $address = isset($_GET['address']) ? htmlspecialchars($_GET['address']) : '';
 $dob = isset($_GET['dob']) ? htmlspecialchars($_GET['dob']) : '';
-$summary = isset($_GET['summary']) ? htmlspecialchars($_GET['summary']) : '';
+$summary = isset($_GET['summary']) ? str_replace("\r", "", $_GET['summary']) : '';
 $job_title1 = isset($_GET['job_title1']) ? htmlspecialchars($_GET['job_title1']) : '';
 $company_name = isset($_GET['company_name']) ? htmlspecialchars($_GET['company_name']) : '';
 $job_duration_start = isset($_GET['job_duration_start']) ? htmlspecialchars($_GET['job_duration_start']) : '';
@@ -76,9 +76,8 @@ $language_list = isset($_GET['language_list']) ? htmlspecialchars($_GET['languag
             <?php
             $skills_array = explode("\r\n", $skills);
             ?>
-
             <ul id="preview_skills">
-              <?php foreach ($skills_array as $skill) : ?>
+              <?php foreach ($skills_array as $skill): ?>
                 <li><?php echo htmlspecialchars($skill); ?>
                 <?php endforeach; ?>
             </ul>
@@ -97,7 +96,7 @@ $language_list = isset($_GET['language_list']) ? htmlspecialchars($_GET['languag
           <!-- Objective and Experience Section -->
           <div class="col-span-2">
             <h2 class="text-2xl text-green-600 font-bold border-b-2 border-green-600 pb-2 mb-4">Objective</h2>
-            <p id="objective" class="text-black"><?php echo $summary; ?></p>
+            <p id="objective" class="text-black"><?php echo htmlspecialchars($summary); ?></p>
 
             <h2 class="text-2xl text-green-600 font-bold border-b-2 border-green-600 pb-2 mb-4 mt-8">Experience</h2>
             <div class="mb-6" id="experience1">
@@ -143,9 +142,9 @@ $language_list = isset($_GET['language_list']) ? htmlspecialchars($_GET['languag
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
   <script>
-    document.getElementById('downloadButton').addEventListener('click', function() {
+    document.getElementById('downloadButton').addEventListener('click', function () {
       var element = document.getElementById('resume003');
-      html2pdf().from(element).output('blob').then(function(blob) {
+      html2pdf().from(element).output('blob').then(function (blob) {
         // Download the PDF
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
@@ -158,9 +157,9 @@ $language_list = isset($_GET['language_list']) ? htmlspecialchars($_GET['languag
         var formData = new FormData();
         formData.append('pdf', blob, '<?php echo $_SESSION['logged']['username']; ?>_Resume.pdf');
         fetch('../Default_Resume/saveUserPDFinDB.php', {
-            method: 'POST',
-            body: formData
-          })
+          method: 'POST',
+          body: formData
+        })
           .then(response => response.text())
           .then(result => {
             console.log('PDF saved and path recorded in database:', result);

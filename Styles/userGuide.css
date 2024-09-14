@@ -1,0 +1,16 @@
+body {
+    overflow-x: hidden;
+}
+
+#followImage {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease-out;
+    object-fit: cover;
+    object-position: center;
+    max-height: auto;
+    max-width: 300px;
+    border-radius: 10px;
+    /* Ensures the image doesn't block any mouse events */
+}

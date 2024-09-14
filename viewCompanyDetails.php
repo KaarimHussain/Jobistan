@@ -19,8 +19,8 @@ $post_company_id = $_GET['post_company_id'];
     <title>View Company Details - Worker | Jobistan</title>
     <?php
     include ('./Includes/bootstrapCss.php');
-    include ('./Includes/swiperCss.php');
     include ('./Includes/Icons.php');
+    include ('./Includes/swiperCss.php');
     ?>
     <link rel="stylesheet" href="./Styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="./Styles/home.css?v=<?php echo time(); ?>">
@@ -44,81 +44,84 @@ $post_company_id = $_GET['post_company_id'];
                     <h1 class="fw-bold"><?php echo $companyData['company_name']; ?></h1>
                 </div>
                 <!-- Avaliable Jobs Published by the Company -->
-                <?php
-                if (!empty($companyJobPostData)) {
-                    ?>
-                    <div class="col-12 mb-3">
-                        <h1 id="heading-gradient-background" class="my-4">Avaliable Jobs</h1>
-                        <div class="swiper mySwiper">
-                            <div class="swiper-wrapper">
-                                <?php
-                                $colorCount = 1;
-                                foreach ($companyJobPostData as $job) {
-                                    $createdAt = new DateTime($job['created_at']);
-                                    $formattedDate = $createdAt->format('F j, Y, g:i a');
-                                    ?>
-                                    <div class="swiper-slide">
-                                        <div class="jobCardsContainer">
-                                            <div class="jobCardInnerTop bg-cool<?php echo $colorCount; ?>">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="py-2 px-3 text-center bg-white rounded-pill text-dark">
-                                                        <small class="fw-bold">
-                                                            <?php echo htmlspecialchars($formattedDate); ?>
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                                <div class="my-3">
-                                                    <small
-                                                        class="fw-bold"><?php echo htmlspecialchars($job['company_name']); ?></small>
+                <div class="row">
+                    <?php
+                    if (!empty($companyJobPostData)) {
+                        ?>
+                        <div class="col-12 mb-3">
+                            <h1 id="heading-gradient-background" class="my-4">Avaliable Jobs</h1>
+                            <div class="swiper mySwiper">
+                                <div class="swiper-wrapper">
+                                    <?php
+                                    $colorCount = 1;
+                                    foreach ($companyJobPostData as $job) {
+                                        $createdAt = new DateTime($job['created_at']);
+                                        $formattedDate = $createdAt->format('F j, Y, g:i a');
+                                        ?>
+                                        <div class="swiper-slide">
+                                            <div class="jobCardsContainer">
+                                                <div class="jobCardInnerTop bg-cool<?php echo $colorCount; ?>">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <h4 class="fw-light"><?php echo htmlspecialchars($job['title']); ?></h4>
+                                                        <div class="py-2 px-3 text-center bg-white rounded-pill text-dark">
+                                                            <small class="fw-bold">
+                                                                <?php echo htmlspecialchars($formattedDate); ?>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="my-3">
+                                                        <small
+                                                            class="fw-bold"><?php echo htmlspecialchars($job['company_name']); ?></small>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <h4 class="fw-light"><?php echo htmlspecialchars($job['title']); ?>
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <div>
+                                                            <small
+                                                                class="text-nowrap fw-semibold"><?php echo strtoupper(htmlspecialchars($job['job_type'])) ?>
+                                                                | </small>
+                                                            <small
+                                                                class="text-wrap fw-semibold"><?php echo htmlspecialchars($job['tags']); ?>
+                                                                |
+                                                            </small>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-2">
-                                                    <div>
+                                                <div
+                                                    class="jobCardInnerBottom px-3 py-3 d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex flex-column">
+                                                        <p class="fw-bolder">
+                                                            <?php echo number_format(htmlspecialchars($job['salary_range']), 0, '.', ',') . " PKR"; ?>
+                                                        </p>
                                                         <small
-                                                            class="text-nowrap fw-semibold"><?php echo strtoupper(htmlspecialchars($job['job_type'])) ?>
-                                                            | </small>
-                                                        <small
-                                                            class="text-wrap fw-semibold"><?php echo htmlspecialchars($job['tags']); ?>
-                                                            |
-                                                        </small>
+                                                            class="text-secondary fw-semibold"><?php echo htmlspecialchars($job['location']); ?></small>
                                                     </div>
+                                                    <form method="get"
+                                                        action="./viewPostDetails.php?job_id=<?php echo htmlspecialchars($job['job_id']); ?>">
+                                                        <input type="hidden" name="job_id"
+                                                            value="<?php echo htmlspecialchars($job['job_id']); ?>">
+                                                        <button type="submit" name="showDetailPostBtn"
+                                                            class="primary-btn">Details</button>
+                                                    </form>
                                                 </div>
-                                            </div>
-                                            <div
-                                                class="jobCardInnerBottom px-3 py-3 d-flex justify-content-between align-items-center">
-                                                <div class="d-flex flex-column">
-                                                    <p class="fw-bolder">
-                                                        <?php echo number_format(htmlspecialchars($job['salary_range']), 0, '.', ',') . " PKR"; ?>
-                                                    </p>
-                                                    <small
-                                                        class="text-secondary fw-semibold"><?php echo htmlspecialchars($job['location']); ?></small>
-                                                </div>
-                                                <form method="get"
-                                                    action="./viewPostDetails.php?job_id=<?php echo htmlspecialchars($job['job_id']); ?>">
-                                                    <input type="hidden" name="job_id"
-                                                        value="<?php echo htmlspecialchars($job['job_id']); ?>">
-                                                    <button type="submit" name="showDetailPostBtn"
-                                                        class="primary-btn">Details</button>
-                                                </form>
                                             </div>
                                         </div>
-                                    </div>
-                                    <?php
-                                    if ($colorCount < 5) {
-                                        $colorCount = 1;
-                                    } else {
-                                        $colorCount++;
+                                        <?php
+                                        if ($colorCount < 5) {
+                                            $colorCount = 1;
+                                        } else {
+                                            $colorCount++;
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php
-                }
-                ?>
+                        <?php
+                    }
+                    ?>
+                </div>
                 <div class="col-12 mb-3">
                     <h3 class="fw-semibold">Description</h3>
                     <p><?php echo htmlspecialchars($companyData['company_description']); ?></p>
@@ -137,10 +140,10 @@ $post_company_id = $_GET['post_company_id'];
     <?php
     include ('./footer.php');
     include ('./Includes/bootstrapJs.php');
-    include ('./Includes/swiperJs.php');
     include ('./Includes/jQuery.php');
+    include ('./Includes/swiperJs.php');
     ?>
-    <script src="./Scripts/companyDetailsSwiper.js"></script>
+    <script src="./Scripts/companyDetailsSwiper.js?v=<?php echo time(); ?>"></script>
 </body>
 
 </html>

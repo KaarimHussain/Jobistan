@@ -1,5 +1,5 @@
 <?php
-include("./Includes/sessionStart.php");
+include ("./Includes/sessionStart.php");
 if (!isset($_SESSION['logged'])) {
     header("Location: index.php");
     exit();
@@ -8,7 +8,7 @@ if ($_SESSION['logged']['role'] == 'recruiter') {
     header("Location: companyHome.php");
     exit();
 }
-include("./Classes/advanceClass.php");
+include ("./Classes/advanceClass.php");
 // include ("./Classes/Base.php");
 ?>
 <!DOCTYPE html>
@@ -19,8 +19,8 @@ include("./Classes/advanceClass.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings | Jobistan</title>
     <?php
-    include("./Includes/bootstrapCss.php");
-    include("./Includes/Icons.php");
+    include ("./Includes/bootstrapCss.php");
+    include ("./Includes/Icons.php");
     ?>
     <link rel="stylesheet" href="Styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="Styles/register.css?v=<?php echo time(); ?>">
@@ -30,11 +30,12 @@ include("./Classes/advanceClass.php");
 
 <body>
     <?php
-    include('./navbar.php');
+    include ('./navbar.php');
     $user_id = $_SESSION['logged']['id'];
     // Making Class Object
     $base = new Select($conn);
     $select = new advanceClass($conn);
+    $resume = $select->getUserResumeFile($user_id);
     // Using Object to fetch Methods and Assinging it to the Variable
     $accountVisibility = $base->getUserAccountVisibility($user_id);
     $resumeVisibility = $base->getUserResumeVisibility($user_id);
@@ -68,7 +69,9 @@ include("./Classes/advanceClass.php");
                 <div class="col-md-8 col-sm-12 mb-3">
                     <!-- General -->
                     <div class="col-12 mb-2 d-flex justify-content-center">
-                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse"
+                            href="#collapseExample1" role="button" aria-expanded="false"
+                            aria-controls="collapseExample1">
                             <div class="generalTab tabsIconBox">
                                 <i class="bi bi-grid-fill fs-4"></i>
                             </div>
@@ -88,14 +91,20 @@ include("./Classes/advanceClass.php");
                                             <label for="username" class="text-white">Username</label>
                                         </div>
                                         <div class="input-group mb-3 passwordIconWrapper shadow-sm d-flex">
-                                            <input type="text" id="username" value="<?php echo $user_info['username']; ?>" name="username" class="form-control input-primary" placeholder="Enter your username..." disabled>
-                                            <button class="btn primary-bg rounded-circle btn-sm text-white" style="height:40px ; width: 40px;" type="button" id="editUsername">
+                                            <input type="text" id="username"
+                                                value="<?php echo $user_info['username']; ?>" name="username"
+                                                class="form-control input-primary" placeholder="Enter your username..."
+                                                disabled>
+                                            <button class="btn primary-bg rounded-circle btn-sm text-white"
+                                                style="height:40px ; width: 40px;" type="button" id="editUsername">
                                                 <i class="bi bi-pencil"></i>
                                             </button>
                                         </div>
 
                                         <div class="mt-3">
-                                            <a class="text-decoration-none optional-color" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            <a class="text-decoration-none optional-color" data-bs-toggle="collapse"
+                                                href="#collapseExample" role="button" aria-expanded="false"
+                                                aria-controls="collapseExample">
                                                 Change Password
                                             </a>
                                         </div>
@@ -107,8 +116,13 @@ include("./Classes/advanceClass.php");
                                                             <label for="current_password" class="text-white">Current
                                                                 Password</label>
                                                             <div class="passwordIconWrapper shadow-sm d-flex">
-                                                                <input name="current_password" type="password" id="currentPasswordInput" class="form-control col-12" placeholder="Enter your Current Password...">
-                                                                <button class="btn primary-bg rounded-circle btn-sm text-white" type="button" id="currentEyeBtn">
+                                                                <input name="current_password" type="password"
+                                                                    id="currentPasswordInput"
+                                                                    class="form-control col-12"
+                                                                    placeholder="Enter your Current Password...">
+                                                                <button
+                                                                    class="btn primary-bg rounded-circle btn-sm text-white"
+                                                                    type="button" id="currentEyeBtn">
                                                                     <i class="bi bi-eye-fill" id="currentEyeIcon"></i>
                                                                 </button>
                                                             </div>
@@ -117,13 +131,18 @@ include("./Classes/advanceClass.php");
                                                             <label for="new_password" class="text-white">New
                                                                 Password</label>
                                                             <div class="passwordIconWrapper shadow-sm d-flex">
-                                                                <input name="new_password" type="password" id="newPasswordInput" class="form-control col-12" placeholder="Enter your New Password...">
-                                                                <button class="btn primary-bg rounded-circle btn-sm text-white" type="button" id="newEyeBtn">
+                                                                <input name="new_password" type="password"
+                                                                    id="newPasswordInput" class="form-control col-12"
+                                                                    placeholder="Enter your New Password...">
+                                                                <button
+                                                                    class="btn primary-bg rounded-circle btn-sm text-white"
+                                                                    type="button" id="newEyeBtn">
                                                                     <i class="bi bi-eye-fill" id="newEyeIcon"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <a href="generalforgetpass.php" class="text-decoration-none optional-color">Forget
+                                                        <a href="generalforgetpass.php"
+                                                            class="text-decoration-none optional-color">Forget
                                                             Password</a>
                                                     </div>
                                                 </div>
@@ -131,7 +150,7 @@ include("./Classes/advanceClass.php");
                                         </div>
                                     </div>
                                     <script>
-                                        document.getElementById('editUsername').addEventListener('click', function() {
+                                        document.getElementById('editUsername').addEventListener('click', function () {
                                             var usernameInput = document.getElementById('username');
                                             usernameInput.disabled = !usernameInput.disabled;
                                             if (!usernameInput.disabled) {
@@ -140,7 +159,7 @@ include("./Classes/advanceClass.php");
                                             }
                                         });
 
-                                        document.getElementById('editEmail').addEventListener('click', function() {
+                                        document.getElementById('editEmail').addEventListener('click', function () {
                                             var emailInput = document.getElementById('email');
                                             emailInput.disabled = !emailInput.disabled;
                                             if (!emailInput.disabled) {
@@ -158,7 +177,9 @@ include("./Classes/advanceClass.php");
                     <!--  -->
                     <!-- Additional General Info -->
                     <div class="col-12 mb-2 d-flex justify-content-center">
-                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
+                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse"
+                            href="#collapseExample4" role="button" aria-expanded="false"
+                            aria-controls="collapseExample4">
                             <div class="additionalInfo tabsIconBox">
                                 <i class="bi bi-book-fill fs-4"></i>
                             </div>
@@ -178,8 +199,13 @@ include("./Classes/advanceClass.php");
                                     <div class="col-12 my-2">
                                         <label for="main_profession" class="text-white mb-2">Main Profession</label>
                                         <div class="d-flex justify-content-between align-items-center gap-3">
-                                            <input type="text" id="main_profession" name="main_profession" class="w-100 input-primary" placeholder="Your Main Profession..." value="<?php echo $additionalInfo['user_main_profession'] ?? ""; ?>">
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Companies will going to search you through the main profession or by your experience" class="rounded-circle d-flex justify-content-center align-items-center primary-bg" style="height:40px;width:40px;">
+                                            <input type="text" id="main_profession" name="main_profession"
+                                                class="w-100 input-primary" placeholder="Your Main Profession..."
+                                                value="<?php echo $additionalInfo['user_main_profession'] ?? ""; ?>">
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-title="Companies will going to search you through the main profession or by your experience"
+                                                class="rounded-circle d-flex justify-content-center align-items-center primary-bg"
+                                                style="height:40px;width:40px;">
                                                 <i class="bi bi-info-circle-fill fs-6 optional-color"></i>
                                             </div>
                                         </div>
@@ -188,19 +214,25 @@ include("./Classes/advanceClass.php");
                                     <!-- Description -->
                                     <div class="col-12 my-2">
                                         <label for="user_description" class="text-white mb-2">Description</label>
-                                        <textarea id="user_description" name="user_description" class="col-12 input-primary resize-none" placeholder="Define your Self..."><?php echo $additionalInfo['user_description'] ?? "" ?></textarea>
+                                        <textarea id="user_description" name="user_description"
+                                            class="col-12 input-primary resize-none"
+                                            placeholder="Define your Self..."><?php echo $additionalInfo['user_description'] ?? "" ?></textarea>
                                     </div>
                                     <!--  -->
                                     <!-- Hobbies -->
                                     <div class="col-12 my-2">
                                         <label for="hobbies" class="text-white mb-2">Hobbies</label>
-                                        <input id="hobbies" name="hobbies" class="col-12 input-primary" value="<?php echo $additionalInfo['user_hobbies'] ?? "" ?>" placeholder="Your Hobbies...">
+                                        <input id="hobbies" name="hobbies" class="col-12 input-primary"
+                                            value="<?php echo $additionalInfo['user_hobbies'] ?? "" ?>"
+                                            placeholder="Your Hobbies...">
                                     </div>
                                     <!--  -->
                                     <!-- Interest -->
                                     <div class="col-12 my-2">
                                         <label for="interest" class="text-white mb-2">Interest</label>
-                                        <input id="interest" name="interest" class="col-12 input-primary" value="<?php echo $additionalInfo['user_interest'] ?? "" ?>" placeholder="What are your Interest...">
+                                        <input id="interest" name="interest" class="col-12 input-primary"
+                                            value="<?php echo $additionalInfo['user_interest'] ?? "" ?>"
+                                            placeholder="What are your Interest...">
                                     </div>
                                     <!--  -->
                                     <!-- Update Info -->
@@ -213,13 +245,16 @@ include("./Classes/advanceClass.php");
                     <!-- Privacy -->
                     <!--  -->
                     <div class="col-12 mb-2 d-flex justify-content-center">
-                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse"
+                            href="#collapseExample2" role="button" aria-expanded="false"
+                            aria-controls="collapseExample2">
                             <div class="notificationTab tabsIconBox">
                                 <i class="bi bi-shield-fill fs-4"></i>
                             </div>
                             <div class="d-flex flex-column justify-content-center">
                                 <span class="fw-light optional-color">Privacy</span>
-                                <small class="text-secondary">Profile Visiblity, Resume Visiblity, Image Detection Security</small>
+                                <small class="text-secondary">Profile Visiblity, Resume Visiblity, Image Detection
+                                    Security</small>
                             </div>
                         </a>
                     </div>
@@ -232,13 +267,15 @@ include("./Classes/advanceClass.php");
                                     <div class="form-check form-switch">
                                         <?php
                                         if ($accountVisibility == 1) {
-                                        ?>
-                                            <input name="visibilityAccount" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                        <?php
+                                            ?>
+                                            <input name="visibilityAccount" checked class="form-check-input" type="checkbox"
+                                                role="switch" id="flexSwitchCheckDefault">
+                                            <?php
                                         } else {
-                                        ?>
-                                            <input name="visibilityAccount" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                        <?php
+                                            ?>
+                                            <input name="visibilityAccount" class="form-check-input" type="checkbox"
+                                                role="switch" id="flexSwitchCheckDefault">
+                                            <?php
                                         }
                                         ?>
                                     </div>
@@ -247,28 +284,31 @@ include("./Classes/advanceClass.php");
                                     <?php
                                     $userResumeData = $base->getUserResumeData($user_id);
                                     if (!empty($userResumeData) || $userResumeData != null) {
-                                    ?>
+                                        ?>
                                         <label for="visibilityResume" class="text-white">Resume Visibility</label>
                                         <?php
                                         if ($resumeVisibility == 1) {
-                                        ?>
+                                            ?>
                                             <div class="form-check form-switch">
-                                                <input name="visibilityResume" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                <input name="visibilityResume" checked class="form-check-input" type="checkbox"
+                                                    role="switch" id="flexSwitchCheckDefault">
                                             </div>
-                                        <?php
+                                            <?php
                                         } else {
-                                        ?>
+                                            ?>
                                             <div class="form-check form-switch">
-                                                <input name="visibilityResume" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                <input name="visibilityResume" class="form-check-input" type="checkbox"
+                                                    role="switch" id="flexSwitchCheckDefault">
                                             </div>
-                                    <?php
+                                            <?php
                                         }
                                     }
                                     ?>
                                 </div>
                                 <div class="col-12 my-2 d-flex justify-content-between">
                                     <label for="ImageAuth" class="text-white">Set up Image Authentication</label>
-                                    <a href="./setUpImageDetect.php" class="optional-color text-decoration-none "><small>Enable
+                                    <a href="./setUpImageDetect.php"
+                                        class="optional-color text-decoration-none "><small>Enable
                                             Image Detection Login</small></a>
                                 </div>
                                 <button type="submit" class="col-12 primary-btn my-3">Update Changes</button>
@@ -278,7 +318,9 @@ include("./Classes/advanceClass.php");
                     <!-- App Setting -->
                     <!--  -->
                     <div class="col-12 mb-2 d-flex justify-content-center">
-                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
+                        <a class="settingTabs col-12 text-decoration-none d-flex gap-3" data-bs-toggle="collapse"
+                            href="#collapseExample3" role="button" aria-expanded="false"
+                            aria-controls="collapseExample3">
                             <div class="appTab tabsIconBox">
                                 <i class="bi bi-terminal-fill fs-4"></i>
                             </div>
@@ -290,29 +332,60 @@ include("./Classes/advanceClass.php");
                     </div>
                     <div class="collapse my-1" id="collapseExample3">
                         <div class="card card-body orangeBackground">
-                            <div class="my-3">
-                                <label for="modal" class="text-white">Upload your Own Resume</label>
+                            <div class="col-12 mb-5 d-flex flex-column align-items-center">
+                                <label for="modal" class="text-white my-2">Upload your Own Resume</label>
+                                <button class="white-btn col-md-7" data-bs-toggle="modal"
+                                    data-bs-target="#OwnResumeModal"><i class="bi bi-upload"></i> Upload your
+                                    Resume</button>
                             </div>
-                            <button class="white-btn" data-bs-toggle="modal" data-bs-target="#OwnResumeModal"><i class="bi bi-upload"></i> Upload your Resume</button>
+                            <?php
+                            if (!empty($resume)) {
+                                ?>
+                                <div class="col-12 mb-3 d-flex flex-column align-items-center">
+                                    <label class="text-white my-2">View Your Resume</label>
+                                    <a target="_blank" href="<?php echo $resume['resume_file']; ?>"
+                                        class="white-btn text-decoration-none col-md-7 text-center">
+                                        <i class="bi bi-box-arrow-up-right"></i> View My Resume
+                                    </a>
+                                </div>
+                                <form method="post" action="deleteResume.php"
+                                    class="col-12 mb-5 d-flex flex-column align-items-center">
+                                    <button class="small-secondary-btn text-decoration-none col-md-7 text-center">
+                                        <i class="bi bi-trash"></i> Delete My Resume
+                                    </button>
+                                </form>
+                                <?php
+                            }
+                            ?>
+
                         </div>
                         <!-- Own Resume Modal -->
-                        <div class="modal fade" id="OwnResumeModal" data-bs-theme="dark" tabindex="-1" aria-labelledby="#OwnResumeModal" aria-hidden="true">
+                        <div class="modal fade" id="OwnResumeModal" data-bs-theme="dark" tabindex="-1"
+                            aria-labelledby="#OwnResumeModal" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Upload your Resume</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Upload your
+                                            Resume</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="./uploadExternalResumeFile.php" method="post" enctype="multipart/form-data">
-                                            <label for="none_builders_resume" class="text-white mb-2">Upload Resume</label>
-                                            <input type="file" name="none_builders_resume" accept="image/pdf" class="form-control">
+                                        <form action="./uploadExternalResumeFile.php" method="post"
+                                            enctype="multipart/form-data">
+                                            <label for="none_builders_resume" class="text-white mb-2">Upload
+                                                Resume</label>
+                                            <input type="file" name="none_builders_resume" required accept="image/pdf"
+                                                class="form-control">
                                             <br>
                                             <label for="job_title" class="col-12 text-white mb-2">Job Title</label>
-                                            <input type="text" class="col-12 form-control" name="job_title" placeholder="Your Latest Job Title">
+                                            <input type="text" required class="col-12 form-control" name="job_title"
+                                                placeholder="Your Latest Job Title">
                                             <br>
-                                            <label for="exact_experience" class="mb-2 col-12 text-white">Job Experience</label>
-                                            <select name="exact_experience" class="col-12 px-3 py-2 border rounded-md mb-3 form-control">
+                                            <label for="exact_experience" class="mb-2 col-12 text-white">Job
+                                                Experience</label>
+                                            <select name="exact_experience" required
+                                                class="col-12 px-3 py-2 border rounded-md mb-3 form-control">
                                                 <option value="fresher" selected>Fresher</option>
                                                 <option value="less_1">Less then 1 Year</option>
                                                 <option value="1">1+ Years</option>
@@ -330,10 +403,13 @@ include("./Classes/advanceClass.php");
                                                 <strong><i class="bi bi-info-circle-fill"></i> Note</strong>
                                                 <ul>
                                                     <li>
-                                                        Please fill these provided inputs for advance resume searching. It will increase your chances to get hired
+                                                        Please fill these provided inputs for advance resume searching.
+                                                        It will increase your chances to get hired
                                                     </li>
                                                     <li>
-                                                        In the Job title input you have to write your job title which your resume is based on. Because you are not using our resume builder.
+                                                        In the Job title input you have to write your job title which
+                                                        your resume is based on. Because you are not using our resume
+                                                        builder.
                                                     </li>
                                                 </ul>
                                             </small>
@@ -399,12 +475,14 @@ include("./Classes/advanceClass.php");
                         </a>
                     </div>
                     <!-- Modal -->
-                    <div class="modal fade" data-bs-theme="dark" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+                    <div class="modal fade" data-bs-theme="dark" id="deleteAccountModal" tabindex="-1"
+                        aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content glass-bg">
                                 <div class="modal-header border-0">
                                     <h5 class="modal-title text-white fw-bold" id="deleteAccountModalLabel">Warning</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body text-white">
                                     Are you sure that you want to delete your account?
@@ -417,12 +495,12 @@ include("./Classes/advanceClass.php");
                         </div>
                     </div>
                     <script>
-                        document.getElementById('deleteAccountLink').addEventListener('click', function() {
+                        document.getElementById('deleteAccountLink').addEventListener('click', function () {
                             var deleteAccountModal = new bootstrap.Modal(document.getElementById('deleteAccountModal'));
                             deleteAccountModal.show();
                         });
 
-                        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                        document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
                             // Redirect immediately to delete_account.php
                             window.location.href = 'delete_account.php';
 
@@ -436,8 +514,8 @@ include("./Classes/advanceClass.php");
         </main>
     </section>
     <?php
-    include("./Includes/bootstrapJs.php");
-    include("./Includes/jQuery.php");
+    include ("./Includes/bootstrapJs.php");
+    include ("./Includes/jQuery.php");
     ?>
     <script src="./Scripts/setting.js?v=<?php echo time(); ?>"></script>
 </body>

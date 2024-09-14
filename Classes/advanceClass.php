@@ -205,11 +205,73 @@ class advanceClass
             return 0;
         }
     }
-    public function insertViewInUserProfile($user_id)
+    // public function insertViewInUserProfile($user_id)
+    // {
+    //     $SQL = "
+    //     INSERT INTO profile_views (user_id, view_count) 
+    //     VALUES (1, 1) 
+    //     ON DUPLICATE KEY UPDATE view_count = view_count + 1";
+    // }
+    public function selectExperience($user_id)
     {
-        $SQL = "
-        INSERT INTO profile_views (user_id, view_count) 
-        VALUES (1, 1) 
-        ON DUPLICATE KEY UPDATE view_count = view_count + 1";
+        $SQL = "SELECT * FROM user_work_experience WHERE user_id = ?";
+        $stmt = $this->conn->prepare($SQL);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $experience = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $experience[] = $row;
+            }
+        }
+        return $experience;
+    }
+    public function insertExperience($user_id, $job_title, $company_name, $work_description, $company_start_date, $company_end_date)
+    {
+        $SQL = "INSERT INTO user_work_experience (user_id, job_title, company_name, work_description, company_start_date, company_end_date) VALUES (?,?,?,?,?,?)";
+        $stmt = $this->conn->prepare($SQL);
+        $stmt->bind_param("isssss", $user_id, $job_title, $company_name, $work_description, $company_start_date, $company_end_date);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function deleteExperience($user_id)
+    {
+        $SQL = "DELETE FROM user_work_experience WHERE user_id =?";
+        $stmt = $this->conn->prepare($SQL);
+        $stmt->bind_param("i", $user_id);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getUserResumeFile($user_id)
+    {
+        $sql = "SELECT * FROM workers_resume WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row;
+        } else {
+            return null;
+        }
+    }
+    public function deleteUserResumeFile($user_id)
+    {
+        $sql = "DELETE FROM workers_resume WHERE user_id =?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

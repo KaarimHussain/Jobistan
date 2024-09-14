@@ -1,6 +1,6 @@
 <?php
-include ("./Includes/sessionStart.php");
-include ("./Includes/db.php");
+include("./Includes/sessionStart.php");
+include("./Includes/db.php");
 // include ("./Classes/advanceClass.php");
 
 class Select
@@ -111,6 +111,8 @@ class Select
             job_listings.salary_range,
             job_listings.tags,
             job_listings.created_at,
+            job_listings.job_status,
+            job_listings.required_candidate,
             employer_profiles.id AS employer_profile_id,
             employer_profiles.user_id,
             employer_profiles.company_name,
@@ -138,7 +140,7 @@ class Select
         }
         return $jobs;
     }
-    public function SelectJobsWithCompanyWithID($job_id)
+    public function SelectJobsForScheduleInterView($job_id)
     {
         $sql = "
         SELECT 
@@ -165,10 +167,90 @@ class Select
             employer_profiles 
         ON 
             job_listings.employer_id = employer_profiles.user_id
-        WHERE job_listings.id = ?
+        WHERE 
+            job_listings.id = ?
         ";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $job_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $job = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $job[] = $row;
+            }
+        }
+        return $job;
+    }
+    public function SelectJobsWithCompanyWithIDForViewPost($job_id)
+    {
+        $sql = "
+        SELECT 
+            job_listings.id AS job_id,
+            job_listings.title,
+            job_listings.description,
+            job_listings.requirements,
+            job_listings.location,
+            job_listings.job_type,
+            job_listings.experience_level,
+            job_listings.salary_range,
+            job_listings.tags,
+            job_listings.created_at,
+            employer_profiles.id AS employer_profile_id,
+            employer_profiles.user_id,
+            employer_profiles.company_name,
+            employer_profiles.company_description,
+            employer_profiles.company_culture,
+            employer_profiles.company_benefits,
+            employer_profiles.company_logo
+        FROM 
+            job_listings
+        INNER JOIN 
+            employer_profiles 
+        ON 
+            job_listings.employer_id = employer_profiles.user_id
+        WHERE 
+            job_listings.id = ?
+        ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $job_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row;
+    }
+    public function SelectJobsWithCompanyWithID($user_id)
+    {
+        $sql = "
+        SELECT 
+            job_listings.id AS job_id,
+            job_listings.title,
+            job_listings.description,
+            job_listings.requirements,
+            job_listings.location,
+            job_listings.job_type,
+            job_listings.experience_level,
+            job_listings.salary_range,
+            job_listings.tags,
+            job_listings.created_at,
+            employer_profiles.id AS employer_profile_id,
+            employer_profiles.user_id,
+            employer_profiles.company_name,
+            employer_profiles.company_description,
+            employer_profiles.company_culture,
+            employer_profiles.company_benefits,
+            employer_profiles.company_logo
+        FROM 
+            job_listings
+        INNER JOIN 
+            employer_profiles 
+        ON 
+            job_listings.employer_id = employer_profiles.user_id
+        WHERE 
+            employer_profiles.user_id = ?
+        ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $job = [];
@@ -262,7 +344,7 @@ class Select
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("ssss", $username, $email, $hashedPassword, $role);
             if ($stmt->execute()) {
-                include ('./Classes/mailing.php');
+                include('./Classes/mailing.php');
                 $mail = new Mailing($conn);
                 $mail->sendMailToSenderForApproval('JOBISTAN', $email, 'Jobistan Approval Team');
                 $_SESSION['info_sucessfull'] = 'Your account will be verified within two business days. You will be notified via the email address you provided!';
@@ -607,12 +689,12 @@ class Select
         $row = $result->fetch_assoc();
         return $row;
     }
-    public function insertDataIntoJobListing($user_id, $title, $description, $requirement, $location, $jobType, $experience, $salary, $tags)
+    public function insertDataIntoJobListing($user_id, $title, $description, $requirement, $location, $jobType, $experience, $salary, $tags, $required_candidate)
     {
-        $SQL = "INSERT INTO job_listings(employer_id, title, description, requirements,location,job_type,experience_level,salary_range,tags,created_at) VALUES
-        (?,?,?,?,?,?,?,?,?,NOW()) ";
+        $SQL = "INSERT INTO job_listings(employer_id, title, description, requirements,location,job_type,experience_level,salary_range,tags,created_at,job_status,required_candidate) VALUES
+        (?,?,?,?,?,?,?,?,?,NOW(), 'open',?) ";
         $stmt = $this->conn->prepare($SQL);
-        $stmt->bind_param("issssssss", $user_id, $title, $description, $requirement, $location, $jobType, $experience, $salary, $tags);
+        $stmt->bind_param("isssssssss", $user_id, $title, $description, $requirement, $location, $jobType, $experience, $salary, $tags, $required_candidate);
         $stmt->execute();
         if ($stmt->affected_rows > 0) {
             return true;
@@ -620,21 +702,21 @@ class Select
             return false;
         }
     }
-    public function getSavedPostRatio($user_id)
+    public function getSavedPostRatio($user_id, $job_id)
     {
-        $SQL = "SELECT * FROM savedpost WHERE user_id = ?";
+        $SQL = "SELECT * FROM savedpost WHERE user_id = ? AND job_listing_id = ?";
         $stmt = $this->conn->prepare($SQL);
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("ii", $user_id, $job_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row;
     }
-    public function handleCompaniesAppliedJobs($user_id, $job_id, $employer_id)
+    public function handleCompaniesAppliedJobs($user_id, $job_id)
     {
-        $SQL = "INSERT INTO companies_applied_jobs (users_id, job_id, employers_id,created_at) VALUES (?,?,?,NOW())";
+        $SQL = "INSERT INTO applied_jobs (user_id, job_id,applied_at) VALUES (?,?,NOW())";
         $stmt = $this->conn->prepare($SQL);
-        $stmt->bind_param("iii", $user_id, $job_id, $employer_id);
+        $stmt->bind_param("ii", $user_id, $job_id);
         $stmt->execute();
         if ($stmt->affected_rows > 0) {
             return true;
@@ -745,13 +827,20 @@ class Select
                 job_listings.created_at,
                 applied_jobs.id AS applied_job_id,
                 applied_jobs.user_id,
-                applied_jobs.job_id
+                applied_jobs.job_id,
+                applied_jobs.applied_at,
+                employer_profiles.company_logo,
+                employer_profiles.company_name,
+                employer_profiles.user_id
             FROM
                 job_listings
             INNER JOIN
                 applied_jobs
+            INNER JOIN
+                employer_profiles
             ON
                 job_listings.id = applied_jobs.job_id
+            AND employer_profiles.user_id = job_listings.employer_id
             WHERE applied_jobs.user_id = ?
                 ";
         $stmt = $this->conn->prepare($SQL);
@@ -828,7 +917,6 @@ class Select
     {
         // Set the timezone to be consistent
         $timezone = new DateTimeZone('Asia/Karachi'); // or replace with your desired timezone
-
         // Create DateTime objects with the same timezone
         $created_at = new DateTime($date, $timezone);
         $now = new DateTime('now', $timezone);
@@ -848,5 +936,28 @@ class Select
         } else {
             return $interval->s . ' second' . ($interval->s > 1 ? 's' : '') . ' ago';
         }
+    }
+    public function checkAppliedRatio($user_id, $job_id)
+    {
+        $SQL = "SELECT * FROM applied_jobs WHERE user_id = ? AND job_id = ?";
+        $stmt = $this->conn->prepare($SQL);
+        $stmt->bind_param("ii", $user_id, $job_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function showJobStatus($job_id)
+    {
+        $SQL = "SELECT * FROM job_listings WHERE id = ?";
+        $stmt = $this->conn->prepare($SQL);
+        $stmt->bind_param("i", $job_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row;
     }
 }

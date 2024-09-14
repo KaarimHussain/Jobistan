@@ -15,20 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $SQL = "UPDATE employer_profiles SET actions = ? WHERE user_id = ?";
         $stmt = $conn->prepare($SQL);
         $stmt->bind_param("si", $action, $user_id);
-        if ($stmt->execute()) {
-            if ($mail->sendMailToSenderForRequestApprove('JOBISTAN', $email, 'Jobistan Approval Team')) {
-                $stmt->close();
-                $_SESSION['admin_success'] = "Successfully Approve the Pending Recruiter";
-                header("Location: adminViewPendings.php");
-                exit();
-            } else {
-                $_SESSION['admin_error'] = "Failed to send the Mail to Sender.";
-                header("Location: adminViewPendings.php");
-                exit();
-            }
+        if ($stmt->execute() && $mail->sendMailToSenderForApproval('JOBISTAN', $email, 'Jobistan Approval Team')) {
+            $stmt->close();
+            $_SESSION['admin_success'] = "Successfully Approve the Pending Recruiter";
+            header("Location: adminViewPendings.php");
+            exit();
         } else {
             $stmt->close();
-            $_SESSION['admin_error'] = "Failed to Accept the Pending Recruiter";
+            // $_SESSION['admin_error'] = "Failed to Accept the Pending Recruiter";
             header("Location: adminViewPendings.php");
             exit();
         }
@@ -39,21 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $SQL = "UPDATE employer_profiles SET actions = ? WHERE user_id = ?";
         $stmt = $conn->prepare($SQL);
         $stmt->bind_param("si", $action, $user_id);
-        if ($stmt->execute()) {
-            if ($mail->sendMailToSenderForRequestReject('JOBISTAN', $email, 'Jobistan Approval Team')) {
-                $stmt->close();
-                $_SESSION['admin_success'] = "Successfully Reject the Pending Recruiter.";
-                header("Location: adminViewPendings.php");
-                exit();
-            } else {
-                $stmt->close();
-                $_SESSION['admin_success'] = "Failed to send the Email Reject Pending Recruiter.";
-                header("Location: adminViewPendings.php");
-                exit();
-            }
+        if ($stmt->execute() && $mail->sendMailToSenderForRequestReject('JOBISTAN', $email, 'Jobistan Approval Team')) {
+            $stmt->close();
+            $_SESSION['admin_success'] = "Successfully Reject the Pending Recruiter.";
+            header("Location: adminViewPendings.php");
+            exit();
         } else {
             $stmt->close();
-            $_SESSION['admin_error'] = "Failed to Reject the Pending Recruiter";
+            // $_SESSION['admin_error'] = "Failed to Reject the Pending Recruiter";
             header("Location: adminViewPendings.php");
             exit();
         }

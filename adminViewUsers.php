@@ -28,7 +28,7 @@ if (!isset($_SESSION['adminLogged'])) {
                 <div class="col-xl-3 col-lg-5 col-md-12">
                     <?php
                     include('./adminNav.php')
-                    ?>
+                        ?>
                 </div>
                 <div class="col-xl-9 col-lg-7 col-md-12">
                     <div class="container">
@@ -36,10 +36,12 @@ if (!isset($_SESSION['adminLogged'])) {
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h1 class="display-6 fw-bold">View Users</h1>
-                                    <small><i class="bi bi-star-fill"></i> In this section you will be able to view through the users that are registered in the Database</small>
+                                    <small><i class="bi bi-star-fill"></i> In this section you will be able to view
+                                        through the users that are registered in the Database</small>
                                 </div>
                                 <div>
-                                    <a href="adminLogout.php" class="primary-btn"><i class="bi bi-door-open-fill"></i></a>
+                                    <a href="adminLogout.php" class="primary-btn"><i
+                                            class="bi bi-door-open-fill"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -66,24 +68,21 @@ if (!isset($_SESSION['adminLogged'])) {
                                             foreach ($userData as $row) {
                                                 $formatedDate = new DateTime($row['created_at']);
                                                 $formatedDate = $formatedDate->format('F j, Y, g:i a');
-                                        ?>
+                                                ?>
                                                 <tr>
                                                     <td class="secondary-font"><?php echo $index; ?></td>
                                                     <td class="text-nowrap"><?php echo $row['username']; ?></td>
                                                     <td class="text-nowrap"><?php echo $row['email']; ?></td>
                                                     <td class="text-nowrap secondary-font"><?php echo $formatedDate ?></td>
                                                     <td class="d-flex gap-1">
-                                                        <form action="adminEditUser.php" method="post">
-                                                            <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
-                                                            <button href="#" class="action-edit-btn">Edit</button>
-                                                        </form>
-                                                        <form action="adminDeleteUser.php" method="post">
-                                                            <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+                                                        <form action="delete_account.php" method="post">
+                                                            <input type="hidden" name="user_id"
+                                                                value="<?php echo $row['id']; ?>">
                                                             <button href="#" class="action-delete-btn">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
-                                        <?php
+                                                <?php
                                                 $index++;
                                             }
                                         } else {
@@ -101,7 +100,11 @@ if (!isset($_SESSION['adminLogged'])) {
         </div>
         <!-- Collapse Button -->
         <div class="position-fixed bottom-0 start-0 pb-4 ps-4">
-            <button class="d-lg-none primary-btn optional-color rounded-circle d-flex justify-content-center align-items-center fs-3" type="button" style="height: 50px;width:50px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i class="bi bi-list"></i></button>
+            <button
+                class="d-lg-none primary-btn optional-color rounded-circle d-flex justify-content-center align-items-center fs-3"
+                type="button" style="height: 50px;width:50px;" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i
+                    class="bi bi-list"></i></button>
         </div>
         <!--  -->
     </main>

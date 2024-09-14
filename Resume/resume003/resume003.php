@@ -40,11 +40,13 @@ if (!isset($_SESSION['logged'])) {
 
 <body class="h-100 w-100">
   <main class="full-h optional-bg position-relative d-flex align-items-center">
-    <button class="primary-btn position-fixed top-50 start-0 translate-middle-y m-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+    <button class="primary-btn position-fixed top-50 start-0 translate-middle-y m-5" type="button"
+      data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
       <i class="bi bi-arrow-right-circle-fill"></i>
     </button>
     <!-- OffCanvas -->
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-theme="dark" data-bs-scroll="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-theme="dark" data-bs-scroll="true"
+      tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
       <div class="offcanvas-header">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
@@ -54,10 +56,12 @@ if (!isset($_SESSION['logged'])) {
           <!-- Step 1: Basic Info -->
           <div id="step1" class="step">
             <label for="full_name" class="block mb-2">Full Name:</label>
-            <input type="text" id="form_full_name" name="form_full_name" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="text" id="form_full_name" name="form_full_name" required
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
             <label for="job_title" class="block mb-2">Job Title:</label>
-            <input type="text" id="form_job_title" name="form_job_title" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="text" id="form_job_title" name="form_job_title" required
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
             <label for="exact_experience" class="block mb-2">Job Experience</label>
             <select name="exact_experience" class="w-full px-3 py-2 border rounded-md mb-3">
@@ -71,23 +75,29 @@ if (!isset($_SESSION['logged'])) {
             </select>
 
             <label for="form_job_summary" class="block mb-2">Job Summary:</label>
-            <input type="text" id="form_job_summary" name="form_job_summary" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="text" id="form_job_summary" name="form_job_summary" required
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
             <!-- contant section -->
 
             <label for="Email" class="block mb-2">Email:</label>
-            <input type="email" id="form_email" name="form_email" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="email" id="form_email" name="form_email" required
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
             <label for="phone" class="block mb-2">Phone:</label>
-            <input type="text" id="form_phone" name="form_phone" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="text" id="form_phone" name="form_phone"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
             <label for="Location" class="block mb-2">Location:</label>
-            <input type="text" id="form_Location" name="form_Location" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="text" id="form_Location" name="form_Location"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
             <label for="linkedin" class="block mb-2">linkedin:</label>
-            <input type="text" id="form_linkedin" name="form_linkedin" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="text" id="form_linkedin" name="form_linkedin"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
             <label for="twitter" class="block mb-2">twitter:</label>
-            <input type="text" id="form_twitter" name="form_twitter" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+            <input type="text" id="form_twitter" name="form_twitter"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
 
             <!-- SKILLS FININSHED -->
 
@@ -103,24 +113,32 @@ if (!isset($_SESSION['logged'])) {
               <h3 class="text-lg font-bold mb-2">Work Experience</h3>
               <div class="job-experience">
                 <label for="job_title_1" class="block mb-2">Job Title1:</label>
-                <input type="text" id="form_job_title_1" name="form_job_title_1" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                <input type="text" id="form_job_title_1" name="form_job_title_1" required
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
                 <label for="company_name_1" class="block mb-2">Company Name:1</label>
-                <input type="text" id="form_company_name_1" name="form_company_name_1" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                <input type="text" id="form_company_name_1" name="form_company_name_1" required
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
                 <label for="job_duration_1" class="block mb-2">Job Duration:</label>
-                <input type="text" id="form_job_duration_1" name="form_job_duration_1" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                <input type="text" id="form_job_duration_1" name="form_job_duration_1" required
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
                 <label for="job_description_1" class="block mb-2">Job Description:</label>
-                <textarea id="form_job_description_1" name="form_job_description_1" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+                <textarea id="form_job_description_1" name="form_job_description_1" rows="4"
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
 
                 <!-- job experiance2 -->
 
                 <label for="job_title_2" class="block mb-2">Job Title2:</label>
-                <input type="text" id="form_job_title_2" name="form_job_title_2" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                <input type="text" id="form_job_title_2" name="form_job_title_2" required
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
                 <label for="company_name_2" class="block mb-2">Company Name:2</label>
-                <input type="text" id="form_company_name_2" name="form_company_name_2" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                <input type="text" id="form_company_name_2" name="form_company_name_2" required
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
                 <label for="job_duration_2" class="block mb-2">Job Duration:2</label>
-                <input type="text" id="form_job_duration_2" name="form_job_duration_2" required class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
+                <input type="text" id="form_job_duration_2" name="form_job_duration_2" required
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500">
                 <label for="job_description_2" class="block mb-2">Job Description:2</label>
-                <textarea id="form_job_description_2" name="form_job_description_2" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+                <textarea id="form_job_description_2" name="form_job_description_2" rows="4"
+                  class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
               </div>
             </div>
 
@@ -136,14 +154,19 @@ if (!isset($_SESSION['logged'])) {
           <!-- Step 3: Education and languages -->
           <div id="step3" class="step hidden">
             <label for="form_skills" class="block mb-2">Skills:</label>
-            <textarea id="form_skills" name="form_skills" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500" placeholder="Enter your skills, each on a new line"></textarea>
+            <textarea id="form_skills" name="form_skills" rows="4"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"
+              placeholder="Enter your skills, each on a new line"></textarea>
             <label for="form_languages" class="block mb-2">languages:</label>
-            <textarea id="form_languages" name="form_languages" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+            <textarea id="form_languages" name="form_languages" rows="4"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
             <label for="form_Education1" class="block mb-2">Education:1</label>
-            <textarea id="form_Education1" name="form_Education1" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+            <textarea id="form_Education1" name="form_Education1" rows="4"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
             <input type="date" id="form_education_date1" name="form_education_date1">
             <label for="form_Education2" class="block mb-2">Education:2</label>
-            <textarea id="form_Education2" name="form_Education2" rows="4" class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
+            <textarea id="form_Education2" name="form_Education2" rows="4"
+              class="w-full px-3 py-2 border rounded-md mb-3 focus:outline-none focus:border-blue-500"></textarea>
             <input type="date" id="form_education_date2" name="form_education_date2">
 
             <div class="resume-actions flex justify-end gap-3">
@@ -222,7 +245,8 @@ if (!isset($_SESSION['logged'])) {
                 <P id="preview_discription1" class="overflow-wrap" style="overflow-wrap: break-word;"></P>
                 <P id="preview_duration1"></P>
 
-                <h2 class="text-2xl font-semibold text-gray-900 border-b-2 pb-2 mb-4" id="preview_experience2_2_heading"></h2>
+                <h2 class="text-2xl font-semibold text-gray-900 border-b-2 pb-2 mb-4"
+                  id="preview_experience2_2_heading"></h2>
                 <p id="preview_companyname_2"></p>
                 <p id="preview_experiance_Title2"></p>
                 <P id="preview_discription2" style="overflow-wrap: break-word;"></P>
@@ -249,9 +273,12 @@ if (!isset($_SESSION['logged'])) {
       ?>
     </div>
   </main>
+  <?php
+  include('../../Includes/bootstrapJs.php');
+  ?>
   <script>
     function showStep(step) {
-      document.querySelectorAll('.step').forEach(function(stepDiv) {
+      document.querySelectorAll('.step').forEach(function (stepDiv) {
         stepDiv.classList.add('hidden');
       });
       document.getElementById('step' + step).classList.remove('hidden');
@@ -307,35 +334,35 @@ if (!isset($_SESSION['logged'])) {
 
 
     //basic info
-    document.getElementById("form_full_name").addEventListener('input', function(event) {
+    document.getElementById("form_full_name").addEventListener('input', function (event) {
       preview_FullName.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_title').addEventListener('input', function(event) {
+    document.getElementById('form_job_title').addEventListener('input', function (event) {
       preview_JobTitle.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_summary').addEventListener('input', function(event) {
+    document.getElementById('form_job_summary').addEventListener('input', function (event) {
       preview_JobSummary.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_email').addEventListener('input', function(event) {
+    document.getElementById('form_email').addEventListener('input', function (event) {
       preview_email.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_phone').addEventListener('input', function(event) {
+    document.getElementById('form_phone').addEventListener('input', function (event) {
       preview_phone.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_Location').addEventListener('input', function(event) {
+    document.getElementById('form_Location').addEventListener('input', function (event) {
       preview_location.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_linkedin').addEventListener('input', function(event) {
+    document.getElementById('form_linkedin').addEventListener('input', function (event) {
       preview_linkdin.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_twitter').addEventListener('input', function(event) {
+    document.getElementById('form_twitter').addEventListener('input', function (event) {
       preview_twitter.innerHTML = event.target.value;
     });
 
@@ -343,7 +370,7 @@ if (!isset($_SESSION['logged'])) {
 
 
 
-    document.getElementById('form_skills').addEventListener('input', function() {
+    document.getElementById('form_skills').addEventListener('input', function () {
       var skills = this.value;
       var skillsContent = skills.split('\n').map(skill => `<li>${skill}</li>`).join('');
       document.getElementById('preview_skills').innerHTML = skillsContent;
@@ -384,21 +411,21 @@ if (!isset($_SESSION['logged'])) {
 
 
     //education section
-    document.getElementById('form_Education1').addEventListener('input', function(event) {
+    document.getElementById('form_Education1').addEventListener('input', function (event) {
       preview_education1_1.innerHTML = event.target.value;
     });
 
 
-    document.getElementById('form_education_date1').addEventListener('input', function(event) {
+    document.getElementById('form_education_date1').addEventListener('input', function (event) {
       preview_education_date1.innerHTML = event.target.value;
     });
 
 
-    document.getElementById('form_Education2').addEventListener('input', function(event) {
+    document.getElementById('form_Education2').addEventListener('input', function (event) {
       preview_education2_2.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_education_date2').addEventListener('input', function(event) {
+    document.getElementById('form_education_date2').addEventListener('input', function (event) {
       preview_education_date2.innerHTML = event.target.value;
     });
 
@@ -406,35 +433,35 @@ if (!isset($_SESSION['logged'])) {
 
 
     //experiance01
-    document.getElementById('form_company_name_1').addEventListener('input', function(event) {
+    document.getElementById('form_company_name_1').addEventListener('input', function (event) {
       preview_company_name_1.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_title_1').addEventListener('input', function(event) {
+    document.getElementById('form_job_title_1').addEventListener('input', function (event) {
       preview_job_title_1.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_description_1').addEventListener('input', function(event) {
+    document.getElementById('form_job_description_1').addEventListener('input', function (event) {
       preview_job_description_1.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_duration_1').addEventListener('input', function(event) {
+    document.getElementById('form_job_duration_1').addEventListener('input', function (event) {
       preview_job_duration_1.innerHTML = event.target.value;
     });
     // experiance 02
-    document.getElementById('form_company_name_2').addEventListener('input', function(event) {
+    document.getElementById('form_company_name_2').addEventListener('input', function (event) {
       preview_company_name_2.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_title_2').addEventListener('input', function(event) {
+    document.getElementById('form_job_title_2').addEventListener('input', function (event) {
       preview_job_title_2.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_description_2').addEventListener('input', function(event) {
+    document.getElementById('form_job_description_2').addEventListener('input', function (event) {
       preview_job_description_2.innerHTML = event.target.value;
     });
 
-    document.getElementById('form_job_duration_2').addEventListener('input', function(event) {
+    document.getElementById('form_job_duration_2').addEventListener('input', function (event) {
       preview_job_duration_2.innerHTML = event.target.value;
     });
   </script>
