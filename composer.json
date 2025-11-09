@@ -1,0 +1,13 @@
+{
+    "require": {
+        "andreasnij/an-sms": "^1.1",
+        "twilio/sdk": "^8.2",
+        "phpmailer/phpmailer": "^6.9",
+        "sapientpro/image-comparator": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}

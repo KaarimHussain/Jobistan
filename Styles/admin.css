@@ -1,0 +1,89 @@
+@import url("./main.css");
+
+body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.offcanvas-width {
+  background-color: var(--secondary-color) !important;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.sidebar-link-active {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  color: var(--secondary-color) !important;
+  padding: 0 2rem;
+  height: 60px;
+  background: linear-gradient(
+    to left,
+    var(--optional-color),
+    var(--optional-color)
+  );
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+.sidebar-link {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  color: var(--optional-color);
+  border: 1px solid var(--optional-color);
+  padding: 0 2rem;
+  height: 60px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.sidebar-link:hover {
+  background-color: var(--optional-color);
+  color: var(--secondary-color);
+}
+.sidebar-link:hover a {
+  color: var(--secondary-color);
+}
+.sidebar-link a {
+  transition: all 0.2s ease;
+  color: var(--optional-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+} 
+.sidebar-link i {
+  font-size: 2rem;
+}
+.black-gradient {
+  border-color: var(--secondary-color);
+  background: linear-gradient(to right, var(--secondary-color), #444);
+}
+#myChart {
+  max-height: 400px;
+  max-width: 400px;
+}
+.todoBody {
+  max-height: 60rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+#taskList {
+  list-style: none;
+  padding: 0.2rem;
+}
+#taskList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+.task-text {
+  padding: 0 1rem;
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,52 @@
+.navbar-toggle {
+  background-color: var(--primary-color) !important;
+  padding: 5px 15px !important;
+  border-radius: 10px !important;
+  border: none;
+  transition: var(--default-transition) !important;
+}
+.notificationSuccess {
+  background: linear-gradient(90deg, #0c4d39, #00000000);
+  border-radius: 0.7rem;
+  padding: 1rem;
+}
+.notificationSuccess #icon i {
+  color: #12ba83;
+}
+.notificationSuccess div span {
+  color: #12ba83;
+}
+#icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 0.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#b8b8b82d, #b8b8b82d);
+}
+.notificationError {
+  background: linear-gradient(90deg, #551011, #00000000);
+  border-radius: 0.7rem;
+  padding: 1rem;
+}
+.notificationError #icon i {
+  color: #fc5353;
+}
+.notificationError div span {
+  color: #fc5353;
+}
+.markReadButton {
+  background: #04244ba1;
+  border-radius: 0.7rem;
+  padding: 0.8rem 2rem;
+  color: #0866c9;
+  border: none;
+  outline: none;
+  transition: var(--default-transition);
+}
+.markReadButton:hover {
+  background: #0866c9;
+  color: var(--optional-color);
+  cursor: pointer;
+}

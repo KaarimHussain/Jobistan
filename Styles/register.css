@@ -1,0 +1,71 @@
+@import url("./input.css");
+
+body {
+  background: url(../Design/mesh-gradient2.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.RegisterBox {
+  padding: 2rem;
+}
+
+.passwordIconWrapper {
+  background-color: var(--optional-color);
+  border-top: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+  padding: 5px 12px;
+  border-radius: 5px;
+}
+
+.passwordIconWrapper input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  width: calc(100% - 30px);
+}
+
+#eyeBtn {
+  background-color: var(--primary-color);
+  border-radius: 50px;
+}
+
+.rolesBtnActive {
+  background-color: #fff;
+  border: 3px solid var(--primary-color);
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  text-wrap: nowrap;
+}
+
+.rolesBtn {
+  background-color: #fff;
+  border: 3px solid var(--secondary-color);
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  text-wrap: nowrap;
+}
+
+.rolesBtnActive:hover,
+.rolesBtnActive:active {
+  background-color: #fff;
+  border: 3px solid var(--primary-hover-color);
+  color: var(--primary-hover-color);
+}
+
+.rolesBtn:hover,
+.rolesBtn:active {
+  background-color: #fff;
+  color: #dadada;
+  border: 3px solid #dadada;
+}
+
+.resize-none {
+  resize: none;
+}

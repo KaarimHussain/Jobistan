@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Template Selection</title>
+    <style>
+        /* Optional: Add some basic styling */
+        .template-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+        .template {
+            cursor: pointer;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .template img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Your Resume Template</h1>
+
+    <div class="template-container">
+        <!-- Template 1 -->
+        <div class="template" onclick="selectTemplate('template1')">
+            <img src="./images/template3.png" alt="Template 1">
+            <p>Template 1</p>
+        </div>
+
+        <!-- Template 2 -->
+        <div class="template" onclick="selectTemplate('template2')">
+            <img src="./images/temlate5.png" alt="Template 2">
+            <p>Template 2</p>
+        </div>
+
+        <!-- Template 3 -->
+        <div class="template" onclick="selectTemplate('template3')">
+            <img src="./images/defoult-template.png" alt="Template 3">
+            <p>Template 3</p>
+        </div>
+
+        <!-- Template 4 -->
+        <div class="template" onclick="selectTemplate('template4')">
+            <img src="./images/template2.png" alt="Template 4">
+            <p>Template 4</p>
+        </div>
+
+        <!-- Template 5 -->
+        <div class="template" onclick="selectTemplate('template5')">
+            <img src="template5.jpg" alt="Template 5">
+            <p>Template 5</p>
+        </div>
+    </div>
+
+    <!-- Hidden form to submit the selected template -->
+    <form id="templateForm" action="process_template_selection.php" method="POST">
+        <input type="hidden" id="selectedTemplate" name="selectedTemplate">
+    </form>
+
+    <script>
+        // Function to set the selected template and submit the form
+        function selectTemplate(templateName) {
+            document.getElementById('selectedTemplate').value = templateName;
+            document.getElementById('templateForm').submit();
+        }
+    </script>
+</body>
+</html>

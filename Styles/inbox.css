@@ -1,0 +1,12 @@
+@import url('./glassBackground.css');
+
+main {
+    background: linear-gradient(to top, #0000006a, #0000006a), url('../Resources/Backgrounds/blueback.png');
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,12 @@
+.input-primary {
+  background-color: var(--optional-color);
+  border-top: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+  border-bottom: transparent;
+  padding: 10px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  outline: none;
+  color: var(--secondary-color);
+}

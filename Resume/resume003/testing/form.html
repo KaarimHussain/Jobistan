@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Form</title>
+    <style>
+        #form_skills {
+            width: 100%;
+            height: 100px;
+        }
+        #preview_skills {
+            list-style-type: none;
+            padding: 0;
+        }
+        #preview_skills li {
+            background: #f0f0f0;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<form method="post" action="saveform.php">
+    <textarea id="form_skills" name="form_skills" placeholder="Enter your skills, each on a new line"></textarea>
+    <input type="submit" value="Submit">
+</form>
+<ul id="preview_skills"></ul>
+
+<script>
+    document.getElementById('form_skills').addEventListener('input', function() {
+        var skills = this.value;
+        var skillsContent = skills.split('\n').map(skill => `<li>${skill}</li>`).join('');
+        document.getElementById('preview_skills').innerHTML = skillsContent;
+    });
+</script>
+
+</body>
+</html>

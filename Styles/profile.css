@@ -1,0 +1,31 @@
+@import url("./main.css");
+@import url('./setting.css');
+@import url('./register.css');
+
+.profileHeading {
+  position: relative;
+  text-align: center;
+}
+.profileHeading::before {
+  content: "";
+  position: absolute;
+  height: 5px;
+  width: clamp(30%, 35vw, 100%);
+  border-radius: 50px;
+  background: var(--primary-color);
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 3rem var(--primary-color);
+  animation: profileHeadingWidth 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+@keyframes profileHeadingWidth {
+  0% {
+    width: clamp(0%, 0%, 0%);
+  }
+  100% {
+    width: clamp(30%, 35vw, 100%);
+  }
+}
